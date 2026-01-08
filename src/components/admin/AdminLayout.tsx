@@ -20,6 +20,7 @@ import {
   Link2,
   ChevronRight,
   FolderTree,
+  FileText,
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 
@@ -46,6 +47,7 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
     { name: 'Import/Export', icon: Download, page: 'import-export', color: 'text-cyan-500' },
     { name: 'MCP & Functions', icon: Zap, page: 'mcp', color: 'text-yellow-500' },
     { name: 'Hero Settings', icon: Palette, page: 'hero-settings', color: 'text-rose-500' },
+    { name: 'Pages', icon: FileText, page: 'pages', color: 'text-sky-500' },
     { name: 'Footer', icon: Link2, page: 'footer', color: 'text-teal-500' },
     { name: 'Admin Users', icon: Users, page: 'users', color: 'text-violet-500' },
     { name: 'Settings', icon: Settings, page: 'settings', color: 'text-gray-500' },

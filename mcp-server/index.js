@@ -742,6 +742,69 @@ const tools = [
       required: ["id"],
     },
   },
+
+  // ============ PAGES ============
+  {
+    name: "list_pages",
+    description: "List all content pages (About Us, Privacy Policy, etc.)",
+    inputSchema: {
+      type: "object",
+      properties: {
+        is_active: { type: "boolean", description: "Filter by active status" },
+      },
+    },
+  },
+  {
+    name: "get_page",
+    description: "Get a page by ID or slug",
+    inputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string", description: "Page ID" },
+        slug: { type: "string", description: "Page slug" },
+      },
+    },
+  },
+  {
+    name: "create_page",
+    description: "Create a new content page",
+    inputSchema: {
+      type: "object",
+      properties: {
+        slug: { type: "string", description: "URL slug (e.g., about-us, privacy-policy)" },
+        title: { type: "string", description: "Page title" },
+        content: { type: "string", description: "Page content (supports # headings, - lists)" },
+        is_active: { type: "boolean", description: "Active status" },
+      },
+      required: ["slug", "title", "content"],
+    },
+  },
+  {
+    name: "update_page",
+    description: "Update a content page",
+    inputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string", description: "Page ID" },
+        slug: { type: "string" },
+        title: { type: "string" },
+        content: { type: "string" },
+        is_active: { type: "boolean" },
+      },
+      required: ["id"],
+    },
+  },
+  {
+    name: "delete_page",
+    description: "Delete a content page",
+    inputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string", description: "Page ID" },
+      },
+      required: ["id"],
+    },
+  },
 ];
 
 // Register tools handler
@@ -1322,6 +1385,46 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const { error } = await supabase.from("admin_users").delete().eq("id", args.id);
         if (error) throw error;
         return { content: [{ type: "text", text: `Admin user ${args.id} deleted successfully` }] };
+      }
+
+      // ============ PAGES ============
+      case "list_pages": {
+        let query = supabase.from("pages").select("*").order("title");
+        if (args.is_active !== undefined) query = query.eq("is_active", args.is_active);
+        const { data, error } = await query;
+        if (error) throw error;
+        return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+      }
+
+      case "get_page": {
+        let query = supabase.from("pages").select("*");
+        if (args.id) query = query.eq("id", args.id);
+        else if (args.slug) query = query.eq("slug", args.slug);
+        else throw new Error("Either id or slug is required");
+        
+        const { data, error } = await query.single();
+        if (error) throw error;
+        return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+      }
+
+      case "create_page": {
+        const { data, error } = await supabase.from("pages").insert([args]).select().single();
+        if (error) throw error;
+        return { content: [{ type: "text", text: `Page created:\n${JSON.stringify(data, null, 2)}` }] };
+      }
+
+      case "update_page": {
+        const { id, ...updates } = args;
+        updates.updated_at = new Date().toISOString();
+        const { data, error } = await supabase.from("pages").update(updates).eq("id", id).select().single();
+        if (error) throw error;
+        return { content: [{ type: "text", text: `Page updated:\n${JSON.stringify(data, null, 2)}` }] };
+      }
+
+      case "delete_page": {
+        const { error } = await supabase.from("pages").delete().eq("id", args.id);
+        if (error) throw error;
+        return { content: [{ type: "text", text: `Page ${args.id} deleted successfully` }] };
       }
 
       default:
