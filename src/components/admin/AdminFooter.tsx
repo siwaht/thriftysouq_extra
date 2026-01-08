@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, ChevronDown, ChevronUp, Link as LinkIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, ChevronDown, ChevronUp, Link as LinkIcon } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface FooterSection {

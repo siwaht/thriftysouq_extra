@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Zap, RefreshCw, ExternalLink, Code, CheckCircle, AlertCircle, Loader2, Copy, Eye, EyeOff, Bot, Terminal, BookOpen, Play } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, Code, CheckCircle, Loader2, Copy, Eye, EyeOff, Bot, Terminal, BookOpen, Play } from 'lucide-react';
 
 interface ApiEndpoint {
   resource: string;
@@ -8,7 +8,6 @@ interface ApiEndpoint {
 }
 
 export function AdminMCP() {
-  const [loading, setLoading] = useState(false);
   const [showSecrets, setShowSecrets] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'endpoints' | 'examples' | 'test'>('overview');
@@ -81,58 +80,6 @@ export function AdminMCP() {
     }
   }
 }`;
-
-  const mcpToolDefinition = `Available MCP Tools:
-
-PRODUCTS:
-- list_products: List products with filtering (category, status, search)
-- get_product: Get product by ID or slug
-- create_product: Create new product
-- update_product: Update existing product
-- delete_product: Delete product
-- update_stock: Update stock quantity
-
-CATEGORIES:
-- list_categories: List all categories
-- create_category: Create category
-- update_category: Update category
-- delete_category: Delete category
-
-ORDERS:
-- list_orders: List orders with filtering
-- get_order: Get order with items
-- update_order_status: Update status (pending/processing/shipped/delivered/cancelled)
-- update_payment_status: Update payment status
-- add_order_note: Add note to order
-
-REVIEWS:
-- list_reviews: List reviews with filtering
-- approve_review: Approve/unapprove review
-- respond_to_review: Add admin response
-- delete_review: Delete review
-
-COUPONS:
-- list_coupons: List all coupons
-- create_coupon: Create coupon
-- update_coupon: Update coupon
-- delete_coupon: Delete coupon
-
-ANALYTICS:
-- get_dashboard_stats: Get all dashboard statistics
-- get_sales_report: Get sales report for date range
-- get_top_products: Get top products by sales/rating
-- get_low_stock_products: Get low stock alerts
-
-SETTINGS:
-- get_store_settings / update_store_settings
-- get_hero_settings / update_hero_settings
-- list_footer_sections / create_footer_section
-- create_footer_link / update_footer_link / delete_footer_link
-
-ADMIN:
-- list_admin_users / create_admin_user / update_admin_user / delete_admin_user
-- list_currencies / create_currency / update_currency / delete_currency
-- list_payment_methods / create_payment_method / update_payment_method`;
 
   return (
     <div className="space-y-8">

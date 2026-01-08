@@ -55,7 +55,7 @@ export function AdminHeroSettings() {
 
   const fetchSettings = async () => {
     setIsLoading(true);
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('hero_settings')
       .select('*')
       .eq('is_active', true)

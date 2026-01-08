@@ -75,7 +75,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
           text: product.short_description,
           url: window.location.href,
         });
-      } catch (err) {
+      } catch {
         console.log('Share cancelled');
       }
     }

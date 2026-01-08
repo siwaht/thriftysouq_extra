@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, Edit, Trash2, Loader2, X, Upload, Save } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, Loader2, X, Save } from 'lucide-react';
 import { supabase, Product } from '../../lib/supabase';
 
 interface Category {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, CreditCard, Banknote, Wallet, Building2 } from 'lucide-react';
+import { Plus, Trash2, CreditCard, Banknote, Wallet, Building2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface PaymentMethod {
@@ -23,7 +23,7 @@ const iconMap: Record<string, React.ReactNode> = {
 export function AdminPaymentMethods() {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [, setEditingId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState<Partial<PaymentMethod>>({
     name: '',

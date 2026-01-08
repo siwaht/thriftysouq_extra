@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Play, Pause, Activity, Copy, Check } from 'lucide-react';
+import { Plus, Edit2, Trash2, Play, Pause, Activity } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface Webhook {
@@ -38,10 +38,9 @@ const EVENT_TYPES = [
 export function AdminWebhooks() {
   const [webhooks, setWebhooks] = useState<Webhook[]>([]);
   const [logs, setLogs] = useState<WebhookLog[]>([]);
-  const [selectedWebhook, setSelectedWebhook] = useState<string | null>(null);
+  const [, setSelectedWebhook] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogsOpen, setIsLogsOpen] = useState(false);
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -171,12 +170,6 @@ export function AdminWebhooks() {
     } catch (error) {
       alert('Failed to send test webhook: ' + (error as Error).message);
     }
-  };
-
-  const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedKey(id);
-    setTimeout(() => setCopiedKey(null), 2000);
   };
 
   const resetForm = () => {

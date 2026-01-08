@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, DollarSign, TrendingUp, Globe } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, DollarSign, Globe } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface Currency {

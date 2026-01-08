@@ -55,7 +55,7 @@ export function AdminSettings() {
   }, []);
 
   const fetchSettings = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('store_settings')
       .select('*')
       .maybeSingle();
@@ -66,12 +66,12 @@ export function AdminSettings() {
   };
 
   const fetchApiKeys = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('api_keys')
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!error && data) {
+    if (data) {
       setApiKeys(data);
     }
   };

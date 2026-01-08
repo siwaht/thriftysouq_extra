@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, Tag, Calendar, TrendingUp } from 'lucide-react';
+import { Plus, Trash2, Tag } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface Coupon {
@@ -22,7 +22,7 @@ interface Coupon {
 export function AdminCoupons() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [, setEditingId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState<Partial<Coupon>>({
     code: '',

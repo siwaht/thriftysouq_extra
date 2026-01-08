@@ -66,10 +66,6 @@ function App() {
     setCheckoutOpen(true);
   };
 
-  const openInfoModal = (type: 'contact' | 'shipping' | 'returns' | 'faq' | 'about' | 'privacy' | 'terms') => {
-    setInfoModal({ isOpen: true, type });
-  };
-
   const closeInfoModal = () => {
     setInfoModal({ isOpen: false, type: null });
   };

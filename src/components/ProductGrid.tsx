@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase, Product } from '../lib/supabase';
 import { ProductCard } from './ProductCard';
-import { Loader2, Package, RefreshCw, Sparkles } from 'lucide-react';
+import { Package, RefreshCw, Sparkles } from 'lucide-react';
 
 interface ProductGridProps {
   categorySlug: string | null;

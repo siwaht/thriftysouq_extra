@@ -12,7 +12,6 @@ import {
   MapPin,
   Mail,
   Phone,
-  Calendar,
   CreditCard,
   ChevronDown
 } from 'lucide-react';

@@ -268,20 +268,20 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
               <X className="h-5 w-5" />
             </button>
 
-            <div className="p-6 md:p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               {/* Progress Steps */}
-              <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
                 {['info', 'payment', 'review'].map((s, i) => (
                   <div key={s} className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold transition-colors ${
                       step === s ? 'bg-emerald-600 text-white' :
                       ['info', 'payment', 'review'].indexOf(step) > i ? 'bg-emerald-100 text-emerald-600' :
                       'bg-gray-100 text-gray-400'
                     }`}>
-                      {['info', 'payment', 'review'].indexOf(step) > i ? <Check className="w-4 h-4" /> : i + 1}
+                      {['info', 'payment', 'review'].indexOf(step) > i ? <Check className="w-3 h-3 sm:w-4 sm:h-4" /> : i + 1}
                     </div>
                     {i < 2 && (
-                      <div className={`w-12 h-0.5 mx-2 ${
+                      <div className={`w-6 sm:w-12 h-0.5 mx-1 sm:mx-2 ${
                         ['info', 'payment', 'review'].indexOf(step) > i ? 'bg-emerald-600' : 'bg-gray-200'
                       }`} />
                     )}
@@ -309,7 +309,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                             <input
@@ -344,7 +344,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                           {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
                             <input
@@ -367,7 +367,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                             <input
