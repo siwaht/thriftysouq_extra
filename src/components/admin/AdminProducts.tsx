@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Plus, Search, Edit, Trash2, Loader2, X, Save } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Search, Edit, Trash2, Loader2, X, Save, Upload, Image, Link2 } from 'lucide-react';
 import { supabase, Product } from '../../lib/supabase';
 
 interface Category {
@@ -50,6 +50,10 @@ export function AdminProducts() {
     is_featured: false,
     is_active: true,
   });
+
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageInputMode, setImageInputMode] = useState<'upload' | 'url'>('upload');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadData();
@@ -189,6 +193,89 @@ export function AdminProducts() {
   };
 
   const removeImageField = (index: number) => {
+    const newImages = formData.images.filter((_, i) => i !== index);
+    setFormData({ ...formData, images: newImages.length ? newImages : [''] });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingImage(true);
+    const newImages = [...formData.images.filter(img => img.trim() !== '')];
+
+    try {
+      for (const file of Array.from(files)) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          alert(`${file.name} is not an image file`);
+          continue;
+        }
+
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`${file.name} is too large. Max size is 5MB`);
+          continue;
+        }
+
+        // Generate unique filename
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const filePath = `products/${fileName}`;
+
+        // Upload to Supabase Storage
+        const { error: uploadError } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, file);
+
+        if (uploadError) {
+          console.error('Upload error:', uploadError);
+          // If bucket doesn't exist, show helpful message
+          if (uploadError.message.includes('Bucket not found')) {
+            alert('Storage bucket "product-images" not found. Please create it in Supabase Storage settings.');
+            break;
+          }
+          alert(`Failed to upload ${file.name}: ${uploadError.message}`);
+          continue;
+        }
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(filePath);
+
+        newImages.push(publicUrl);
+      }
+
+      // Update form with new images
+      setFormData({ ...formData, images: newImages.length ? newImages : [''] });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      alert('Failed to upload images');
+    } finally {
+      setUploadingImage(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const removeImage = async (index: number) => {
+    const imageUrl = formData.images[index];
+    
+    // If it's a Supabase storage URL, try to delete from storage
+    if (imageUrl.includes('supabase') && imageUrl.includes('product-images')) {
+      try {
+        const path = imageUrl.split('product-images/')[1];
+        if (path) {
+          await supabase.storage.from('product-images').remove([path]);
+        }
+      } catch (error) {
+        console.error('Error deleting image from storage:', error);
+      }
+    }
+
     const newImages = formData.images.filter((_, i) => i !== index);
     setFormData({ ...formData, images: newImages.length ? newImages : [''] });
   };
@@ -518,36 +605,136 @@ export function AdminProducts() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Images (URLs)
-                </label>
-                {formData.images.map((image, index) => (
-                  <div key={index} className="flex gap-2 mb-2">
-                    <input
-                      type="url"
-                      value={image}
-                      onChange={(e) => handleImageChange(index, e.target.value)}
-                      placeholder="https://example.com/image.jpg"
-                      className="input-field"
-                    />
-                    {formData.images.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeImageField(index)}
-                        className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <X className="h-5 w-5" />
-                      </button>
-                    )}
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Product Images
+                  </label>
+                  <div className="flex bg-gray-100 rounded-lg p-1">
+                    <button
+                      type="button"
+                      onClick={() => setImageInputMode('upload')}
+                      className={`px-3 py-1 text-xs font-medium rounded-md transition-colors flex items-center gap-1 ${
+                        imageInputMode === 'upload'
+                          ? 'bg-white text-emerald-600 shadow-sm'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      <Upload className="h-3 w-3" />
+                      Upload
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setImageInputMode('url')}
+                      className={`px-3 py-1 text-xs font-medium rounded-md transition-colors flex items-center gap-1 ${
+                        imageInputMode === 'url'
+                          ? 'bg-white text-emerald-600 shadow-sm'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      <Link2 className="h-3 w-3" />
+                      URL
+                    </button>
                   </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addImageField}
-                  className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
-                >
-                  + Add another image
-                </button>
+                </div>
+
+                {/* Image Preview Grid */}
+                {formData.images.filter(img => img.trim() !== '').length > 0 && (
+                  <div className="grid grid-cols-4 gap-3 mb-4">
+                    {formData.images.filter(img => img.trim() !== '').map((image, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={image}
+                          alt={`Product ${index + 1}`}
+                          className="w-full h-24 object-cover rounded-lg border border-gray-200"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Error';
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                        {index === 0 && (
+                          <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-emerald-500 text-white text-[10px] font-medium rounded">
+                            Main
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {imageInputMode === 'upload' ? (
+                  <div className="space-y-3">
+                    <div
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/50 transition-colors"
+                    >
+                      {uploadingImage ? (
+                        <div className="flex flex-col items-center">
+                          <Loader2 className="h-8 w-8 text-emerald-600 animate-spin mb-2" />
+                          <p className="text-sm text-gray-600">Uploading...</p>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-3">
+                            <Image className="h-6 w-6 text-emerald-600" />
+                          </div>
+                          <p className="text-sm font-medium text-gray-700 mb-1">
+                            Click to upload images
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, WEBP up to 5MB each
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <p className="text-xs text-gray-500">
+                      💡 Tip: Create a "product-images" bucket in Supabase Storage with public access
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {formData.images.map((image, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="url"
+                          value={image}
+                          onChange={(e) => handleImageChange(index, e.target.value)}
+                          placeholder="https://example.com/image.jpg"
+                          className="input-field"
+                        />
+                        {formData.images.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeImageField(index)}
+                            className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          >
+                            <X className="h-5 w-5" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={addImageField}
+                      className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                    >
+                      + Add another image URL
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-6">
