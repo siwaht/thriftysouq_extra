@@ -14,6 +14,7 @@ import { AdminWebhooks } from './AdminWebhooks';
 import { AdminImportExport } from './AdminImportExport';
 import { AdminMCP } from './AdminMCP';
 import { AdminHeroSettings } from './AdminHeroSettings';
+import { AdminPages } from './AdminPages';
 import { AdminFooter } from './AdminFooter';
 import { AdminUsers } from './AdminUsers';
 import { AdminSettings } from './AdminSettings';
@@ -52,6 +53,8 @@ function AdminContent() {
         return <AdminMCP />;
       case 'hero-settings':
         return <AdminHeroSettings />;
+      case 'pages':
+        return <AdminPages />;
       case 'footer':
         return <AdminFooter />;
       case 'users':

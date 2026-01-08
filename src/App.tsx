@@ -8,7 +8,6 @@ import { ProductDetail } from './components/ProductDetail';
 import { CartSidebar } from './components/CartSidebar';
 import { Checkout } from './components/Checkout';
 import { Admin } from './components/admin/Admin';
-import { InfoModal } from './components/InfoModal';
 import { Product, supabase } from './lib/supabase';
 
 interface FooterSection {
@@ -25,6 +24,14 @@ interface FooterLink {
   display_order: number;
 }
 
+interface Page {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  is_active: boolean;
+}
+
 function App() {
   const [view, setView] = useState<'store' | 'admin'>('store');
   const [cartOpen, setCartOpen] = useState(false);
@@ -34,10 +41,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [footerSections, setFooterSections] = useState<FooterSection[]>([]);
   const [footerLinks, setFooterLinks] = useState<FooterLink[]>([]);
-  const [infoModal, setInfoModal] = useState<{
-    isOpen: boolean;
-    type: 'contact' | 'shipping' | 'returns' | 'faq' | 'about' | 'privacy' | 'terms' | null;
-  }>({ isOpen: false, type: null });
+  const [pages, setPages] = useState<Page[]>([]);
+  const [pageModal, setPageModal] = useState<{ isOpen: boolean; page: Page | null }>({ isOpen: false, page: null });
 
   useEffect(() => {
     const path = window.location.hash;
@@ -45,6 +50,7 @@ function App() {
       setView('admin');
     }
     loadFooterData();
+    loadPages();
   }, []);
 
   const loadFooterData = async () => {
@@ -61,218 +67,78 @@ function App() {
     }
   };
 
+  const loadPages = async () => {
+    try {
+      const { data } = await supabase
+        .from('pages')
+        .select('*')
+        .eq('is_active', true);
+      
+      if (data) setPages(data);
+    } catch (error) {
+      console.error('Error loading pages:', error);
+    }
+  };
+
+  const handleFooterLinkClick = (url: string) => {
+    // Check if URL matches a page slug
+    const slug = url.startsWith('/') ? url.slice(1) : url;
+    const page = pages.find(p => p.slug === slug);
+    
+    if (page) {
+      setPageModal({ isOpen: true, page });
+    } else if (url.startsWith('http')) {
+      window.open(url, '_blank');
+    } else if (url.startsWith('#')) {
+      const element = document.querySelector(url);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const closePageModal = () => {
+    setPageModal({ isOpen: false, page: null });
+  };
+
   const handleCheckout = () => {
     setCartOpen(false);
     setCheckoutOpen(true);
   };
 
-  const closeInfoModal = () => {
-    setInfoModal({ isOpen: false, type: null });
-  };
-
-  const getModalContent = () => {
-    switch (infoModal.type) {
-      case 'contact':
-        return {
-          title: 'Contact Us',
-          content: (
-            <div className="space-y-4">
-              <p className="text-lg">We'd love to hear from you! Get in touch with our customer support team.</p>
-              <div className="bg-emerald-50 p-4 rounded-lg space-y-2">
-                <p><strong>Email:</strong> support@thriftysouq.ae</p>
-                <p><strong>Phone:</strong> +971 4 123 4567</p>
-                <p><strong>WhatsApp:</strong> +971 50 123 4567</p>
-                <p><strong>Hours:</strong> Sunday - Thursday, 9AM - 6PM GST</p>
-                <p><strong>Address:</strong> Dubai Silicon Oasis, Dubai, UAE</p>
-              </div>
-              <p className="text-sm text-gray-600">Response time: Within 24 hours</p>
-            </div>
-          ),
-        };
-      case 'shipping':
-        return {
-          title: 'Shipping Information',
-          content: (
-            <div className="space-y-4">
-              <p className="text-lg font-semibold text-emerald-600">Free Shipping on Orders Over AED 200!</p>
-              <div className="space-y-3">
-                <div>
-                  <h3 className="font-semibold text-gray-900">Dubai & Sharjah</h3>
-                  <p className="text-sm text-gray-600">Same Day / Next Day Delivery - AED 15</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Abu Dhabi & Northern Emirates</h3>
-                  <p className="text-sm text-gray-600">1-2 business days - AED 25</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">GCC Countries</h3>
-                  <p className="text-sm text-gray-600">3-5 business days - AED 50</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">International</h3>
-                  <p className="text-sm text-gray-600">5-10 business days - Rates vary by destination</p>
-                </div>
-              </div>
-              <div className="bg-emerald-50 p-4 rounded-lg mt-4">
-                <p className="text-sm">All orders are processed within 1-2 business days. You'll receive a tracking number via SMS and email once your order ships. Cash on Delivery (COD) available for UAE orders.</p>
-              </div>
-            </div>
-          ),
-        };
-      case 'returns':
-        return {
-          title: 'Returns & Refunds',
-          content: (
-            <div className="space-y-4">
-              <p className="text-lg font-semibold text-emerald-600">14-Day Return Policy</p>
-              <div className="space-y-3">
-                <p>We stand behind the quality of our products. If you're not completely satisfied, return your purchase within 14 days for a full refund or exchange.</p>
-                <div className="bg-emerald-50 p-4 rounded-lg space-y-2">
-                  <h3 className="font-semibold text-gray-900">Return Policy</h3>
-                  <ul className="list-disc list-inside text-sm space-y-1">
-                    <li>Items must be in original condition with tags attached</li>
-                    <li>Returns are free for defective items</li>
-                    <li>Refunds processed within 5-7 business days</li>
-                    <li>Original shipping costs are non-refundable</li>
-                    <li>COD orders refunded via bank transfer</li>
-                  </ul>
-                </div>
-                <p className="text-sm text-gray-600">To initiate a return, contact our support team via WhatsApp or email with your order number.</p>
-              </div>
-            </div>
-          ),
-        };
-      case 'faq':
-        return {
-          title: 'Frequently Asked Questions',
-          content: (
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">How do I track my order?</h3>
-                <p className="text-sm text-gray-600">Once your order ships, you'll receive a tracking number via SMS and email. You can also track via WhatsApp.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">What payment methods do you accept?</h3>
-                <p className="text-sm text-gray-600">We accept Visa, Mastercard, Apple Pay, Samsung Pay, Tabby (Buy Now Pay Later), and Cash on Delivery (COD) for UAE orders.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Do you ship internationally?</h3>
-                <p className="text-sm text-gray-600">Yes! We ship to GCC countries and worldwide. International shipping rates vary by destination.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Are your products authentic?</h3>
-                <p className="text-sm text-gray-600">Absolutely! All our products are 100% authentic and sourced from authorized distributors.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Is Cash on Delivery available?</h3>
-                <p className="text-sm text-gray-600">Yes, COD is available for all UAE orders. A small COD fee of AED 10 applies.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">How can I change or cancel my order?</h3>
-                <p className="text-sm text-gray-600">Contact us immediately via WhatsApp at +971 50 123 4567. Orders can only be modified before they ship.</p>
-              </div>
-            </div>
-          ),
-        };
-      case 'about':
-        return {
-          title: 'About ThriftySouq',
-          content: (
-            <div className="space-y-4">
-              <p className="text-lg">Your trusted marketplace for premium quality at thrifty prices in the UAE.</p>
-              <div className="space-y-3">
-                <p>Founded in Dubai, ThriftySouq was born from a simple idea: everyone deserves access to quality products at fair prices. We've built a curated marketplace that brings together the best brands and independent sellers across the UAE and GCC region.</p>
-                <div className="bg-emerald-50 p-4 rounded-lg space-y-3">
-                  <h3 className="font-semibold text-gray-900">Our Mission</h3>
-                  <p className="text-sm">To provide UAE residents and visitors with access to premium products at competitive prices, backed by exceptional customer service and fast delivery.</p>
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-gray-900">Why Choose Us?</h3>
-                  <ul className="list-disc list-inside text-sm space-y-1">
-                    <li>100% authentic products</li>
-                    <li>Same-day delivery in Dubai</li>
-                    <li>Cash on Delivery available</li>
-                    <li>14-day return policy</li>
-                    <li>Arabic & English customer support</li>
-                    <li>Secure payment options including Tabby</li>
-                  </ul>
-                </div>
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600"><strong>Trade License:</strong> Dubai DED Licensed</p>
-                  <p className="text-sm text-gray-600"><strong>Location:</strong> Dubai Silicon Oasis, Dubai, UAE</p>
-                </div>
-              </div>
-            </div>
-          ),
-        };
-      case 'privacy':
-        return {
-          title: 'Privacy Policy',
-          content: (
-            <div className="space-y-4">
-              <p className="text-sm text-gray-600">Last updated: January 2026</p>
-              <div className="space-y-3">
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Information We Collect</h3>
-                  <p className="text-sm text-gray-600">We collect information you provide directly to us, including name, email address, phone number, shipping address, and payment information when you make a purchase.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">How We Use Your Information</h3>
-                  <p className="text-sm text-gray-600">We use your information to process orders, communicate with you about your purchases via SMS/WhatsApp/Email, and improve our services. We never sell your personal information to third parties.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Data Security</h3>
-                  <p className="text-sm text-gray-600">We implement industry-standard security measures to protect your personal information. All payment transactions are encrypted using SSL technology and processed through PCI-DSS compliant payment gateways.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">UAE Data Protection</h3>
-                  <p className="text-sm text-gray-600">We comply with UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection. Your data is stored securely within the UAE.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Your Rights</h3>
-                  <p className="text-sm text-gray-600">You have the right to access, correct, or delete your personal information at any time. Contact us at privacy@thriftysouq.ae for assistance.</p>
-                </div>
-              </div>
-            </div>
-          ),
-        };
-      case 'terms':
-        return {
-          title: 'Terms of Service',
-          content: (
-            <div className="space-y-4">
-              <p className="text-sm text-gray-600">Last updated: January 2026</p>
-              <div className="space-y-3">
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Agreement to Terms</h3>
-                  <p className="text-sm text-gray-600">By accessing and using ThriftySouq, you agree to be bound by these Terms of Service and all applicable UAE laws and regulations.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Use License</h3>
-                  <p className="text-sm text-gray-600">Permission is granted to purchase products for personal, non-commercial use only. Resale of products requires written authorization.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Product Descriptions</h3>
-                  <p className="text-sm text-gray-600">We strive to provide accurate product descriptions and images. However, we do not warrant that descriptions are error-free or complete.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Pricing</h3>
-                  <p className="text-sm text-gray-600">All prices are in UAE Dirhams (AED) and include VAT where applicable. Prices are subject to change without notice.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Governing Law</h3>
-                  <p className="text-sm text-gray-600">These terms shall be governed by and construed in accordance with the laws of the United Arab Emirates. Any disputes shall be subject to the exclusive jurisdiction of the Dubai Courts.</p>
-                </div>
-                <div className="bg-emerald-50 p-4 rounded-lg">
-                  <p className="text-sm">For complete terms and conditions, please contact our legal team at legal@thriftysouq.ae.</p>
-                </div>
-              </div>
-            </div>
-          ),
-        };
-      default:
-        return { title: '', content: null };
-    }
+  // Simple markdown-like rendering for page content
+  const renderPageContent = (content: string) => {
+    return content
+      .split('\n\n')
+      .map((paragraph, i) => {
+        // Headers
+        if (paragraph.startsWith('### ')) {
+          return <h3 key={i} className="text-lg font-semibold text-gray-900 mt-4 mb-2">{paragraph.slice(4)}</h3>;
+        }
+        if (paragraph.startsWith('## ')) {
+          return <h2 key={i} className="text-xl font-bold text-gray-900 mt-6 mb-3">{paragraph.slice(3)}</h2>;
+        }
+        if (paragraph.startsWith('# ')) {
+          return <h1 key={i} className="text-2xl font-bold text-gray-900 mt-4 mb-4">{paragraph.slice(2)}</h1>;
+        }
+        // Lists
+        if (paragraph.includes('\n- ')) {
+          const items = paragraph.split('\n- ').filter(Boolean);
+          return (
+            <ul key={i} className="list-disc list-inside space-y-1 my-3 text-gray-600">
+              {items.map((item, j) => <li key={j}>{item}</li>)}
+            </ul>
+          );
+        }
+        if (paragraph.startsWith('- ')) {
+          const items = paragraph.split('\n').filter(line => line.startsWith('- ')).map(line => line.slice(2));
+          return (
+            <ul key={i} className="list-disc list-inside space-y-1 my-3 text-gray-600">
+              {items.map((item, j) => <li key={j}>{item}</li>)}
+            </ul>
+          );
+        }
+        // Regular paragraph
+        return <p key={i} className="text-gray-600 mb-3 leading-relaxed">{paragraph}</p>;
+      });
   };
 
   if (view === 'admin') {
@@ -340,12 +206,12 @@ function App() {
                         .filter(link => link.section_id === section.id)
                         .map((link) => (
                           <li key={link.id}>
-                            <a
-                              href={link.url}
-                              className="hover:text-emerald-400 transition-colors"
+                            <button
+                              onClick={() => handleFooterLinkClick(link.url)}
+                              className="hover:text-emerald-400 transition-colors text-left"
                             >
                               {link.label}
-                            </a>
+                            </button>
                           </li>
                         ))}
                     </ul>
@@ -387,13 +253,27 @@ function App() {
             onClose={() => setCheckoutOpen(false)}
           />
 
-          <InfoModal
-            isOpen={infoModal.isOpen}
-            onClose={closeInfoModal}
-            title={getModalContent().title}
-          >
-            {getModalContent().content}
-          </InfoModal>
+          {/* Page Content Modal */}
+          {pageModal.isOpen && pageModal.page && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+              <div className="bg-white rounded-2xl max-w-2xl w-full my-8 shadow-2xl">
+                <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                  <h2 className="text-2xl font-bold text-gray-900">{pageModal.page.title}</h2>
+                  <button
+                    onClick={closePageModal}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="p-6 max-h-[70vh] overflow-y-auto">
+                  {renderPageContent(pageModal.page.content)}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </CartProvider>
     </CurrencyProvider>
