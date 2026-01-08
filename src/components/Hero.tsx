@@ -219,12 +219,6 @@ export function Hero() {
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-gray-50 to-transparent" />
 
-      {/* Scroll Indicator - Desktop only */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center pt-1.5 sm:pt-2">
-          <div className="w-1 h-2 sm:w-1.5 sm:h-3 bg-white/50 rounded-full animate-pulse" />
-        </div>
-      </div>
     </section>
   );
 }

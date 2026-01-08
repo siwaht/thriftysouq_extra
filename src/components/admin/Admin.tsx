@@ -4,6 +4,7 @@ import { AdminLogin } from './AdminLogin';
 import { AdminLayout } from './AdminLayout';
 import { AdminDashboard } from './AdminDashboard';
 import { AdminProducts } from './AdminProducts';
+import { AdminCategories } from './AdminCategories';
 import { AdminOrders } from './AdminOrders';
 import { AdminReviews } from './AdminReviews';
 import { AdminPaymentMethods } from './AdminPaymentMethods';
@@ -28,9 +29,11 @@ function AdminContent() {
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <AdminDashboard />;
+        return <AdminDashboard onPageChange={setCurrentPage} />;
       case 'products':
         return <AdminProducts />;
+      case 'categories':
+        return <AdminCategories />;
       case 'orders':
         return <AdminOrders />;
       case 'reviews':
@@ -56,7 +59,7 @@ function AdminContent() {
       case 'settings':
         return <AdminSettings />;
       default:
-        return <AdminDashboard />;
+        return <AdminDashboard onPageChange={setCurrentPage} />;
     }
   };
 

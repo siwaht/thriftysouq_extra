@@ -19,6 +19,7 @@ import {
   Store,
   Link2,
   ChevronRight,
+  FolderTree,
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 
@@ -35,6 +36,7 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
   const navigation = [
     { name: 'Dashboard', icon: LayoutDashboard, page: 'dashboard', color: 'text-blue-500' },
     { name: 'Products', icon: Package, page: 'products', color: 'text-purple-500' },
+    { name: 'Categories', icon: FolderTree, page: 'categories', color: 'text-lime-500' },
     { name: 'Orders', icon: ShoppingCart, page: 'orders', color: 'text-emerald-500' },
     { name: 'Reviews', icon: Star, page: 'reviews', color: 'text-amber-500' },
     { name: 'Coupons', icon: Tag, page: 'coupons', color: 'text-pink-500' },

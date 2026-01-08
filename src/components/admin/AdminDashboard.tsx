@@ -10,7 +10,8 @@ import {
   Clock,
   ArrowUpRight,
   BarChart3,
-  Activity
+  Activity,
+  FolderTree
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -32,7 +33,11 @@ interface TopProduct {
   review_count: number;
 }
 
-export function AdminDashboard() {
+interface AdminDashboardProps {
+  onPageChange: (page: string) => void;
+}
+
+export function AdminDashboard({ onPageChange }: AdminDashboardProps) {
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,
@@ -355,22 +360,41 @@ export function AdminDashboard() {
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <button className="p-4 border border-gray-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-200 transition-all group">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <button 
+            onClick={() => onPageChange('products')}
+            className="p-4 border border-gray-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-200 transition-all group"
+          >
             <Package className="h-6 w-6 text-gray-600 group-hover:text-emerald-600 mb-2" />
             <p className="font-medium text-gray-900 group-hover:text-emerald-700">Add Product</p>
           </button>
-          <button className="p-4 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-all group">
+          <button 
+            onClick={() => onPageChange('categories')}
+            className="p-4 border border-gray-200 rounded-xl hover:bg-lime-50 hover:border-lime-200 transition-all group"
+          >
+            <FolderTree className="h-6 w-6 text-gray-600 group-hover:text-lime-600 mb-2" />
+            <p className="font-medium text-gray-900 group-hover:text-lime-700">Categories</p>
+          </button>
+          <button 
+            onClick={() => onPageChange('orders')}
+            className="p-4 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-all group"
+          >
             <ShoppingCart className="h-6 w-6 text-gray-600 group-hover:text-blue-600 mb-2" />
             <p className="font-medium text-gray-900 group-hover:text-blue-700">View Orders</p>
           </button>
-          <button className="p-4 border border-gray-200 rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all group">
+          <button 
+            onClick={() => onPageChange('reviews')}
+            className="p-4 border border-gray-200 rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all group"
+          >
             <Star className="h-6 w-6 text-gray-600 group-hover:text-purple-600 mb-2" />
             <p className="font-medium text-gray-900 group-hover:text-purple-700">Moderate Reviews</p>
           </button>
-          <button className="p-4 border border-gray-200 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all group">
+          <button 
+            onClick={() => onPageChange('hero-settings')}
+            className="p-4 border border-gray-200 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all group"
+          >
             <BarChart3 className="h-6 w-6 text-gray-600 group-hover:text-amber-600 mb-2" />
-            <p className="font-medium text-gray-900 group-hover:text-amber-700">View Reports</p>
+            <p className="font-medium text-gray-900 group-hover:text-amber-700">Hero Settings</p>
           </button>
         </div>
       </div>
