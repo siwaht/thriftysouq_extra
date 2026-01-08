@@ -15,6 +15,8 @@ import {
   Palette,
   Users,
   Settings,
+  Zap,
+  Store,
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 
@@ -38,10 +40,16 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
     { name: 'Payment Methods', icon: CreditCard, page: 'payments' },
     { name: 'Webhooks', icon: Webhook, page: 'webhooks' },
     { name: 'Import/Export', icon: Download, page: 'import-export' },
+    { name: 'MCP & Functions', icon: Zap, page: 'mcp' },
     { name: 'Hero Settings', icon: Palette, page: 'hero-settings' },
     { name: 'Admin Users', icon: Users, page: 'users' },
     { name: 'Settings', icon: Settings, page: 'settings' },
   ];
+
+  const handleBackToStore = () => {
+    window.location.hash = '';
+    window.location.reload();
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -102,7 +110,14 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
           })}
         </nav>
 
-        <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
+        <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50 space-y-2">
+          <button
+            onClick={handleBackToStore}
+            className="w-full flex items-center gap-3 px-4 py-3 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors font-medium"
+          >
+            <Store className="h-5 w-5" />
+            <span className="font-medium">Back to Store</span>
+          </button>
           <button
             onClick={logout}
             className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium"
@@ -113,8 +128,8 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
         </div>
       </aside>
 
-      <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-8">{children}</div>
+      <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
       </main>
     </div>
   );

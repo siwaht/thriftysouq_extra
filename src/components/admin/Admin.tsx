@@ -11,6 +11,7 @@ import { AdminCoupons } from './AdminCoupons';
 import { AdminCurrencies } from './AdminCurrencies';
 import { AdminWebhooks } from './AdminWebhooks';
 import { AdminImportExport } from './AdminImportExport';
+import { AdminMCP } from './AdminMCP';
 import { AdminHeroSettings } from './AdminHeroSettings';
 import { AdminUsers } from './AdminUsers';
 import { AdminSettings } from './AdminSettings';
@@ -43,6 +44,8 @@ function AdminContent() {
         return <AdminWebhooks />;
       case 'import-export':
         return <AdminImportExport />;
+      case 'mcp':
+        return <AdminMCP />;
       case 'hero-settings':
         return <AdminHeroSettings />;
       case 'users':
