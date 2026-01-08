@@ -168,14 +168,15 @@ export function AdminImportExport() {
     setImportResult(null);
 
     try {
-      const text = await importFile.text();
       let parsedData: any[] = [];
 
       if (importFile.name.endsWith('.csv')) {
+        const text = await importFile.text();
         const result = Papa.parse(text, { header: true, skipEmptyLines: true });
         parsedData = result.data;
       } else if (importFile.name.endsWith('.xlsx')) {
-        const workbook = XLSX.read(text, { type: 'string' });
+        const arrayBuffer = await importFile.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
         parsedData = XLSX.utils.sheet_to_json(firstSheet);
       } else {
