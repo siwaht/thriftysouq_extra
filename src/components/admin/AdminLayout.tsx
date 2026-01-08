@@ -10,6 +10,11 @@ import {
   Menu,
   X,
   CreditCard,
+  Webhook,
+  Download,
+  Palette,
+  Users,
+  Settings,
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
 
@@ -31,6 +36,11 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
     { name: 'Coupons', icon: Tag, page: 'coupons' },
     { name: 'Currencies', icon: DollarSign, page: 'currencies' },
     { name: 'Payment Methods', icon: CreditCard, page: 'payments' },
+    { name: 'Webhooks', icon: Webhook, page: 'webhooks' },
+    { name: 'Import/Export', icon: Download, page: 'import-export' },
+    { name: 'Hero Settings', icon: Palette, page: 'hero-settings' },
+    { name: 'Admin Users', icon: Users, page: 'users' },
+    { name: 'Settings', icon: Settings, page: 'settings' },
   ];
 
   return (

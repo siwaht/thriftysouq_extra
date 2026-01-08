@@ -9,6 +9,11 @@ import { AdminReviews } from './AdminReviews';
 import { AdminPaymentMethods } from './AdminPaymentMethods';
 import { AdminCoupons } from './AdminCoupons';
 import { AdminCurrencies } from './AdminCurrencies';
+import { AdminWebhooks } from './AdminWebhooks';
+import { AdminImportExport } from './AdminImportExport';
+import { AdminHeroSettings } from './AdminHeroSettings';
+import { AdminUsers } from './AdminUsers';
+import { AdminSettings } from './AdminSettings';
 
 function AdminContent() {
   const { isAuthenticated } = useAdmin();
@@ -34,6 +39,16 @@ function AdminContent() {
         return <AdminCurrencies />;
       case 'payments':
         return <AdminPaymentMethods />;
+      case 'webhooks':
+        return <AdminWebhooks />;
+      case 'import-export':
+        return <AdminImportExport />;
+      case 'hero-settings':
+        return <AdminHeroSettings />;
+      case 'users':
+        return <AdminUsers />;
+      case 'settings':
+        return <AdminSettings />;
       default:
         return <AdminDashboard />;
     }
