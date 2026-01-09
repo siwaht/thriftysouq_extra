@@ -119,11 +119,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTR2Mkg0djJIMnYtNGgzNHptLTIgMHYySDI0di0yaDEwem0tMTAgMHYySDR2LTJoMjB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
 
       {/* Main Content */}
-      <div className="relative h-full">
-        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="relative h-full flex flex-col justify-center">
+        <div className={`w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-32 transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 xl:col-span-8">
+            <div className="lg:col-span-7 space-y-8">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
                 <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
@@ -131,8 +131,8 @@ export function Hero() {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-white via-emerald-100 to-teal-100 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight">
+                <span className="text-white drop-shadow-lg">
                   {settings.title}
                 </span>
               </h1>
@@ -173,14 +173,14 @@ export function Hero() {
             </div>
 
             {/* Right Stats - Desktop */}
-            <div className="hidden lg:flex lg:col-span-5 xl:col-span-4 flex-col gap-4 items-end">
+            <div className="hidden lg:flex lg:col-span-5 flex-col gap-5">
               {stats.map((stat, index) => {
                 const Icon = statsIconMap[stat.icon] || Users;
                 return (
                   <div
                     key={index}
-                    className="w-full max-w-[200px] p-4 xl:p-5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="w-full max-w-[260px] ml-auto p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 shadow-glass group hover:bg-white/15 transition-all duration-300 hover:-translate-x-2"
+                    style={{ animationDelay: `${index * 0.15}s` }}
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center">
