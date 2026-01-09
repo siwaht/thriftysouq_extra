@@ -96,99 +96,94 @@ export function Hero() {
 
   return (
     <section
-      className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[85vh] bg-gradient-to-br from-emerald-900 via-teal-900 to-gray-900 text-white overflow-hidden"
+      className="relative min-h-[600px] md:min-h-[700px] lg:min-h-[85vh] bg-hero-gradient text-white overflow-hidden"
       aria-label="Hero section"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(${settings.background_image_url})` }}
+          className="absolute inset-0 bg-cover bg-center opacity-30 transform scale-105 animate-float"
+          style={{ backgroundImage: `url(${settings.background_image_url})`, animationDuration: '30s' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/95 via-teal-900/90 to-gray-900/95" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-950/95 via-brand-900/80 to-brand-950/95 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-black/20" />
       </div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
-
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTR2Mkg0djJIMnYtNGgzNHptLTIgMHYySDI0di0yaDEwem0tMTAgMHYySDR2LTJoMjB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
 
       {/* Main Content */}
-      <div className="relative h-full">
-        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="relative h-full flex flex-col justify-center">
+        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 xl:col-span-8">
+            <div className="lg:col-span-7 xl:col-span-8 space-y-8">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
-                <span className="text-emerald-200 text-xs sm:text-sm font-medium">{settings.badge_text}</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-glass hover:bg-white/15 transition-colors">
+                <Sparkles className="w-4 h-4 text-gold-400" />
+                <span className="text-brand-50 text-sm font-medium tracking-wide shadow-black drop-shadow-md">{settings.badge_text}</span>
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-white via-emerald-100 to-teal-100 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight">
+                <span className="block text-white drop-shadow-lg">
                   {settings.title}
+                </span>
+                <span className="block mt-2 bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 bg-clip-text text-transparent italic drop-shadow-sm">
+                  Finds
                 </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-gray-300 leading-relaxed max-w-xl">
+              <p className="text-lg sm:text-xl text-brand-100/90 leading-relaxed max-w-2xl font-light">
                 {settings.subtitle}
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10">
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <button
                   onClick={() => scrollToSection(settings.primary_button_link)}
-                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                  className="btn-gold group flex items-center justify-center gap-2"
                 >
                   {settings.primary_button_text}
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => scrollToSection(settings.secondary_button_link)}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 hover:border-white/50 transition-all duration-300"
+                  className="px-8 py-3 bg-white/10 backdrop-blur-md border border-white/40 text-white font-medium rounded-full
+                           hover:bg-white/20 hover:border-white/60 transition-all duration-300"
                 >
                   {settings.secondary_button_text}
                 </button>
               </div>
 
               {/* Features */}
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-8 border-t border-white/10">
                 {settings.features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2 sm:gap-3 group">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/30 transition-colors">
-                      {iconMap[feature.icon] || <Shield className="w-4 h-4 sm:w-5 sm:h-5" />}
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="w-6 h-6 text-gold-400">
+                      {iconMap[feature.icon] || <Shield className="w-5 h-5" />}
                     </div>
-                    <span className="text-gray-300 text-sm sm:text-base font-medium">{feature.text}</span>
+                    <span className="text-brand-50 text-sm font-medium">{feature.text}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Right Stats - Desktop */}
-            <div className="hidden lg:flex lg:col-span-5 xl:col-span-4 flex-col gap-4 items-end">
+            <div className="hidden lg:flex lg:col-span-5 xl:col-span-4 flex-col gap-5 items-end">
               {stats.map((stat, index) => {
                 const Icon = statsIconMap[stat.icon] || Users;
                 return (
                   <div
                     key={index}
-                    className="w-full max-w-[200px] p-4 xl:p-5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="w-full max-w-[240px] p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 shadow-glass group hover:bg-white/15 transition-all duration-300 hover:-translate-x-2"
+                    style={{ animationDelay: `${index * 0.15}s` }}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-emerald-400" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-gold-500/20 transition-colors">
+                        <Icon className="w-6 h-6 text-gold-400" />
                       </div>
                       <div>
-                        <div className="text-2xl xl:text-3xl font-bold text-white">{stat.value}</div>
-                        <div className="text-xs xl:text-sm text-gray-400">{stat.label}</div>
+                        <div className="text-3xl font-bold text-white tracking-tight">{stat.value}</div>
+                        <div className="text-sm text-brand-200 font-medium">{stat.label}</div>
                       </div>
                     </div>
                   </div>
@@ -196,29 +191,8 @@ export function Hero() {
               })}
             </div>
           </div>
-
-          {/* Mobile Stats */}
-          <div className="grid grid-cols-3 gap-3 mt-8 lg:hidden">
-            {stats.map((stat, index) => {
-              const Icon = statsIconMap[stat.icon] || Users;
-              return (
-                <div
-                  key={index}
-                  className="text-center p-3 sm:p-4 bg-white/5 backdrop-blur-md rounded-xl border border-white/10"
-                >
-                  <Icon className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-                  <div className="text-lg sm:text-xl font-bold text-white">{stat.value}</div>
-                  <div className="text-xs text-gray-400">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
-
-      {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-gray-50 to-transparent" />
-
     </section>
   );
 }

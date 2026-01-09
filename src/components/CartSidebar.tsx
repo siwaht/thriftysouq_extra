@@ -43,11 +43,11 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-              <ShoppingBag className="h-5 w-5 text-emerald-600" />
+            <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center">
+              <ShoppingBag className="h-5 w-5 text-brand-700" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
+              <h2 className="text-xl font-serif font-bold text-gray-900">Shopping Cart</h2>
               <p className="text-sm text-gray-500">{getTotalItems()} items</p>
             </div>
           </div>
@@ -63,18 +63,18 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
         {/* Cart Items */}
         {items.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center p-6">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <ShoppingBag className="h-10 w-10 text-gray-400" />
+            <div className="w-24 h-24 bg-brand-50 rounded-full flex items-center justify-center mb-6">
+              <ShoppingBag className="h-10 w-10 text-brand-300" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Your cart is empty</h3>
-            <p className="text-gray-500 text-center mb-6">
-              Looks like you haven't added any items to your cart yet.
+            <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Your cart is empty</h3>
+            <p className="text-gray-500 text-center mb-8 max-w-[200px]">
+              Looks like you haven't added any premium finds yet.
             </p>
             <button
               onClick={onClose}
-              className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="px-8 py-3 bg-brand-900 text-white font-medium rounded-full shadow-lg shadow-brand-900/20 hover:shadow-xl hover:shadow-brand-900/30 hover:bg-brand-800 transition-all duration-300"
             >
-              Continue Shopping
+              Start Shopping
             </button>
           </div>
         ) : (
@@ -82,28 +82,28 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
             {/* Items List */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {items.map(item => (
-                <div 
-                  key={item.product.id} 
-                  className="flex gap-4 bg-gray-50 p-4 rounded-2xl group hover:bg-gray-100 transition-colors"
+                <div
+                  key={item.product.id}
+                  className="flex gap-4 bg-gray-50/50 p-4 rounded-2xl group hover:bg-white hover:shadow-soft transition-all duration-300 border border-transparent hover:border-gray-100"
                 >
                   <div className="relative">
                     <img
                       src={item.product.images[0] || 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=200'}
                       alt={item.product.name}
-                      className="w-20 h-20 object-cover rounded-xl"
+                      className="w-20 h-20 object-cover rounded-xl shadow-sm"
                     />
                     {item.product.compare_at_price > 0 && (
-                      <span className="absolute -top-1 -right-1 px-1.5 py-0.5 bg-rose-500 text-white text-[10px] font-bold rounded">
+                      <span className="absolute -top-1 -right-1 px-1.5 py-0.5 bg-gold-500 text-white text-[10px] font-bold rounded shadow-sm">
                         SALE
                       </span>
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 mb-1 truncate">
+                    <h3 className="font-serif font-bold text-gray-900 mb-1 truncate group-hover:text-brand-700 transition-colors">
                       {item.product.name}
                     </h3>
-                    <p className="text-sm text-emerald-600 font-semibold mb-3">
+                    <p className="text-brand-600 font-semibold mb-3">
                       {formatPrice(item.product.base_price)}
                     </p>
 
@@ -111,20 +111,20 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                       <div className="flex items-center gap-1 bg-white rounded-lg border border-gray-200">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                          className="p-1.5 hover:bg-gray-100 rounded-l-lg transition-colors disabled:opacity-50"
+                          className="p-1.5 hover:bg-gray-100 rounded-l-lg transition-colors disabled:opacity-50 text-gray-600"
                           disabled={item.quantity <= 1}
                           aria-label="Decrease quantity"
                         >
                           <Minus className="h-3.5 w-3.5" />
                         </button>
 
-                        <span className="w-8 text-center text-sm font-semibold">
+                        <span className="w-8 text-center text-sm font-semibold text-gray-900">
                           {item.quantity}
                         </span>
 
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                          className="p-1.5 hover:bg-gray-100 rounded-r-lg transition-colors disabled:opacity-50"
+                          className="p-1.5 hover:bg-gray-100 rounded-r-lg transition-colors disabled:opacity-50 text-gray-600"
                           disabled={item.quantity >= item.product.stock_quantity}
                           aria-label="Increase quantity"
                         >
@@ -146,21 +146,21 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-100 p-6 space-y-4 bg-gray-50">
+            <div className="border-t border-gray-100 p-6 space-y-4 bg-gray-50/50 backdrop-blur-sm">
               {/* Free Shipping Progress */}
               {subtotal < 50 && (
-                <div className="bg-emerald-50 rounded-xl p-3">
-                  <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="text-emerald-700">
-                      Add {formatPrice(50 - subtotal)} more for free shipping!
+                <div className="bg-brand-50/80 rounded-xl p-3 border border-brand-100">
+                  <div className="flex items-center justify-between text-xs sm:text-sm mb-2">
+                    <span className="text-brand-700 font-medium">
+                      Add {formatPrice(50 - subtotal)} for <span className="text-gold-600 font-bold">free shipping!</span>
                     </span>
-                    <span className="text-emerald-600 font-medium">
+                    <span className="text-brand-900 font-bold">
                       {Math.round((subtotal / 50) * 100)}%
                     </span>
                   </div>
-                  <div className="h-2 bg-emerald-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500"
+                  <div className="h-1.5 bg-brand-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-brand-500 to-gold-500 rounded-full transition-all duration-500"
                       style={{ width: `${Math.min((subtotal / 50) * 100, 100)}%` }}
                     />
                   </div>
@@ -169,19 +169,19 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
 
               {/* Order Summary */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-gray-600">
+                <div className="flex items-center justify-between text-gray-600 text-sm">
                   <span>Subtotal</span>
-                  <span className="font-medium">{formatPrice(subtotal)}</span>
+                  <span className="font-medium text-gray-900">{formatPrice(subtotal)}</span>
                 </div>
-                <div className="flex items-center justify-between text-gray-600">
+                <div className="flex items-center justify-between text-gray-600 text-sm">
                   <span>Shipping</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-emerald-600' : ''}`}>
+                  <span className={`font-medium ${shipping === 0 ? 'text-gold-600' : 'text-gray-900'}`}>
                     {shipping === 0 ? 'Free' : formatPrice(shipping)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
+                <div className="flex items-center justify-between text-lg font-serif font-bold text-gray-900 pt-3 border-t border-gray-200">
                   <span>Total</span>
-                  <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                  <span className="text-brand-950">
                     {formatPrice(total)}
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
               {/* Checkout Button */}
               <button
                 onClick={onCheckout}
-                className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 group"
+                className="w-full py-4 bg-brand-900 text-white font-medium rounded-full shadow-lg shadow-brand-900/20 hover:shadow-xl hover:shadow-brand-900/30 hover:bg-brand-800 transition-all duration-300 flex items-center justify-center gap-2 group transform hover:-translate-y-0.5"
               >
                 Proceed to Checkout
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -198,13 +198,13 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
 
               <button
                 onClick={onClose}
-                className="w-full py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-colors"
+                className="w-full py-3 text-sm text-gray-500 font-medium hover:text-brand-700 transition-colors"
               >
                 Continue Shopping
               </button>
 
               {/* Trust Badges */}
-              <div className="flex items-center justify-center gap-4 pt-2 text-xs text-gray-500">
+              <div className="flex items-center justify-center gap-4 pt-2 text-[10px] text-gray-400 uppercase tracking-wider font-medium">
                 <span>🔒 Secure Checkout</span>
                 <span>•</span>
                 <span>💳 All Cards Accepted</span>
