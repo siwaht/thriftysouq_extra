@@ -119,23 +119,6 @@ export function AdminLogin() {
               )}
             </button>
           </form>
-
-          <div className="mt-8 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-100">
-            <p className="text-sm font-semibold text-emerald-800 mb-2 flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4" />
-              Demo Credentials
-            </p>
-            <div className="space-y-1">
-              <p className="text-sm text-emerald-700">
-                <span className="text-gray-600">Email:</span>{' '}
-                <code className="bg-white px-2 py-0.5 rounded text-emerald-600">admin@luxe.com</code>
-              </p>
-              <p className="text-sm text-emerald-700">
-                <span className="text-gray-600">Password:</span>{' '}
-                <code className="bg-white px-2 py-0.5 rounded text-emerald-600">admin123</code>
-              </p>
-            </div>
-          </div>
         </div>
 
         <p className="text-center text-emerald-400/60 text-sm mt-6">
