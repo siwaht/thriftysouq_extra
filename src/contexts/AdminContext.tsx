@@ -53,7 +53,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         .select('*')
         .eq('email', email)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
       
       if (data && !error) {
         // For demo purposes, accept any password for DB users
