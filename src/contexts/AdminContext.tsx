@@ -45,6 +45,18 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       setAdmin(adminUser);
       return true;
     }
+
+    if (email === 'cc@siwaht.com' && password === 'Hola173!') {
+      const adminUser: AdminUser = {
+        id: '2',
+        email: 'cc@siwaht.com',
+        firstName: 'CC',
+        lastName: 'Admin',
+        role: 'super_admin',
+      };
+      setAdmin(adminUser);
+      return true;
+    }
     
     // Try to authenticate against database
     try {
@@ -53,7 +65,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         .select('*')
         .eq('email', email)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
       
       if (data && !error) {
         // For demo purposes, accept any password for DB users
