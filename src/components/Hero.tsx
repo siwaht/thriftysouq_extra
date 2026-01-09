@@ -111,10 +111,10 @@ export function Hero() {
 
       {/* Main Content */}
       <div className="relative h-full flex flex-col justify-center">
-        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className={`w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-32 transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 xl:col-span-8 space-y-8">
+            <div className="lg:col-span-7 space-y-8">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-glass hover:bg-white/15 transition-colors">
                 <Sparkles className="w-4 h-4 text-gold-400" />
@@ -123,11 +123,8 @@ export function Hero() {
 
               {/* Title */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight">
-                <span className="block text-white drop-shadow-lg">
+                <span className="text-white drop-shadow-lg">
                   {settings.title}
-                </span>
-                <span className="block mt-2 bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 bg-clip-text text-transparent italic drop-shadow-sm">
-                  Finds
                 </span>
               </h1>
 
@@ -168,13 +165,13 @@ export function Hero() {
             </div>
 
             {/* Right Stats - Desktop */}
-            <div className="hidden lg:flex lg:col-span-5 xl:col-span-4 flex-col gap-5 items-end">
+            <div className="hidden lg:flex lg:col-span-5 flex-col gap-5">
               {stats.map((stat, index) => {
                 const Icon = statsIconMap[stat.icon] || Users;
                 return (
                   <div
                     key={index}
-                    className="w-full max-w-[240px] p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 shadow-glass group hover:bg-white/15 transition-all duration-300 hover:-translate-x-2"
+                    className="w-full max-w-[260px] ml-auto p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 shadow-glass group hover:bg-white/15 transition-all duration-300 hover:-translate-x-2"
                     style={{ animationDelay: `${index * 0.15}s` }}
                   >
                     <div className="flex items-center gap-4">
