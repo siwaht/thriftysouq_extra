@@ -40,7 +40,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       onClick={() => onClick(product)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-emerald-200 shadow-sm hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-500 transform hover:-translate-y-1"
+      className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-brand-200 shadow-sm hover:shadow-xl hover:shadow-brand-100/50 transition-all duration-500 transform hover:-translate-y-1"
       role="button"
       tabIndex={0}
       aria-label={`View ${product.name}`}
@@ -54,10 +54,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
         />
-        
+
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {hasDiscount && (
@@ -80,11 +80,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {/* Wishlist button */}
         <button
           onClick={handleWishlist}
-          className={`absolute top-3 right-3 p-2.5 rounded-full transition-all duration-300 ${
-            isWishlisted 
-              ? 'bg-rose-500 text-white shadow-lg' 
+          className={`absolute top-3 right-3 p-2.5 rounded-full transition-all duration-300 ${isWishlisted
+              ? 'bg-rose-500 text-white shadow-lg'
               : 'bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-white hover:text-rose-500 shadow-md'
-          } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
+            } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
           aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
         >
           <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-current' : ''}`} />
@@ -94,11 +93,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {product.stock_quantity > 0 && (
           <button
             onClick={handleAddToCart}
-            className={`absolute bottom-3 left-3 right-3 py-2.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-              addedToCart
-                ? 'bg-emerald-500 text-white'
-                : 'bg-white/95 backdrop-blur-sm text-gray-900 hover:bg-emerald-500 hover:text-white shadow-lg'
-            } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            className={`absolute bottom-3 left-3 right-3 py-2.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${addedToCart
+                ? 'bg-brand-500 text-white'
+                : 'bg-white/95 backdrop-blur-sm text-gray-900 hover:bg-brand-500 hover:text-white shadow-lg'
+              } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             aria-label="Add to cart"
           >
             <ShoppingBag className="h-4 w-4" />
@@ -119,7 +117,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       {/* Content */}
       <div className="p-5">
         {/* Product name */}
-        <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-1 group-hover:text-emerald-600 transition-colors text-lg">
+        <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-1 group-hover:text-brand-600 transition-colors text-lg">
           {product.name}
         </h3>
 
@@ -135,13 +133,12 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-4 w-4 ${
-                    i < Math.floor(product.average_rating)
+                  className={`h-4 w-4 ${i < Math.floor(product.average_rating)
                       ? 'fill-amber-400 text-amber-400'
                       : i < product.average_rating
-                      ? 'fill-amber-400/50 text-amber-400'
-                      : 'text-gray-200'
-                  }`}
+                        ? 'fill-amber-400/50 text-amber-400'
+                        : 'text-gray-200'
+                    }`}
                 />
               ))}
             </div>
@@ -156,7 +153,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
         {/* Price */}
         <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          <span className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-600 bg-clip-text text-transparent">
             {formatPrice(product.base_price)}
           </span>
           {hasDiscount && (

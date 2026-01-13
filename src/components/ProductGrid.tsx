@@ -55,8 +55,8 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <div className="relative">
-          <div className="w-16 h-16 border-4 border-emerald-200 rounded-full animate-spin border-t-emerald-600" />
-          <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-emerald-600" />
+          <div className="w-16 h-16 border-4 border-brand-200 rounded-full animate-spin border-t-brand-600" />
+          <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-brand-600" />
         </div>
         <p className="mt-4 text-gray-500 font-medium">Loading products...</p>
       </div>
@@ -92,7 +92,7 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
           {searchQuery ? `No results for "${searchQuery}"` : 'No products available'}
         </h3>
         <p className="text-gray-500 max-w-md mx-auto">
-          {searchQuery 
+          {searchQuery
             ? 'Try adjusting your search terms or browse our categories.'
             : 'Check back soon for new arrivals!'}
         </p>
@@ -143,8 +143,8 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {featuredProducts.map((product, index) => (
-              <div 
-                key={product.id} 
+              <div
+                key={product.id}
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -163,7 +163,7 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
         <section className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {featuredProducts.length > 0 && !searchQuery && !categorySlug && (
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/25">
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-600 to-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/25">
                 <Package className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -174,8 +174,8 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {regularProducts.map((product, index) => (
-              <div 
-                key={product.id} 
+              <div
+                key={product.id}
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${(index + featuredProducts.length) * 0.05}s` }}
               >
@@ -193,8 +193,8 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
       {(searchQuery || categorySlug) && featuredProducts.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredProducts.map((product, index) => (
-            <div 
-              key={product.id} 
+            <div
+              key={product.id}
               className="animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >

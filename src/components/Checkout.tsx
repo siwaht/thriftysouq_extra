@@ -78,10 +78,10 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.email) newErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email format';
-    
+
     if (!formData.firstName) newErrors.firstName = 'First name is required';
     if (!formData.lastName) newErrors.lastName = 'Last name is required';
     if (!formData.address) newErrors.address = 'Address is required';
@@ -89,21 +89,21 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
     if (!formData.postalCode) newErrors.postalCode = 'Postal code is required';
     if (!formData.country) newErrors.country = 'Country is required';
     if (!formData.phone) newErrors.phone = 'Phone is required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (step === 'info') {
       if (validateForm()) {
         setStep('payment');
       }
       return;
     }
-    
+
     if (step === 'payment') {
       if (!selectedPaymentMethod) {
         alert('Please select a payment method');
@@ -119,7 +119,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
     try {
       // First, check if customer already exists
       let customerId: string;
-      
+
       const { data: existingCustomer } = await supabase
         .from('customers')
         .select('id')
@@ -262,24 +262,24 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
       <>
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 animate-fade-in" />
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center animate-scale-in shadow-2xl">
-            <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center animate-scale-in shadow-elegant-lg">
+            <div className="w-20 h-20 bg-gradient-to-br from-brand-400 to-brand-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-elegant">
               <Check className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Order Confirmed!</h2>
             <p className="text-gray-600 mb-4">
               Thank you for your purchase. Your order has been received.
             </p>
-            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+            <div className="bg-brand-50 rounded-xl p-4 mb-6">
               <p className="text-sm text-gray-500 mb-1">Order Number</p>
-              <p className="text-lg font-bold text-emerald-600">{orderNumber}</p>
+              <p className="text-lg font-bold text-brand-600">{orderNumber}</p>
             </div>
             <p className="text-sm text-gray-500 mb-6">
               A confirmation email will be sent to {formData.email}
             </p>
             <button
               onClick={handleClose}
-              className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
+              className="w-full py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
             >
               Continue Shopping
             </button>
@@ -295,7 +295,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
 
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
-          <div className="relative bg-white rounded-3xl max-w-4xl w-full shadow-2xl animate-scale-in" onClick={(e) => e.stopPropagation()}>
+          <div className="relative bg-white rounded-3xl max-w-4xl w-full shadow-elegant-lg animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={handleClose}
               className="absolute right-4 top-4 p-2 hover:bg-gray-100 rounded-full transition-colors z-10"
@@ -309,17 +309,15 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
               <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
                 {['info', 'payment', 'review'].map((s, i) => (
                   <div key={s} className="flex items-center">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold transition-colors ${
-                      step === s ? 'bg-emerald-600 text-white' :
-                      ['info', 'payment', 'review'].indexOf(step) > i ? 'bg-emerald-100 text-emerald-600' :
-                      'bg-gray-100 text-gray-400'
-                    }`}>
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold transition-colors ${step === s ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/30' :
+                        ['info', 'payment', 'review'].indexOf(step) > i ? 'bg-brand-100 text-brand-600' :
+                          'bg-gray-100 text-gray-400'
+                      }`}>
                       {['info', 'payment', 'review'].indexOf(step) > i ? <Check className="w-3 h-3 sm:w-4 sm:h-4" /> : i + 1}
                     </div>
                     {i < 2 && (
-                      <div className={`w-6 sm:w-12 h-0.5 mx-1 sm:mx-2 ${
-                        ['info', 'payment', 'review'].indexOf(step) > i ? 'bg-emerald-600' : 'bg-gray-200'
-                      }`} />
+                      <div className={`w-6 sm:w-12 h-0.5 mx-1 sm:mx-2 ${['info', 'payment', 'review'].indexOf(step) > i ? 'bg-brand-600' : 'bg-gray-200'
+                        }`} />
                     )}
                   </div>
                 ))}
@@ -332,7 +330,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                     {step === 'info' && (
                       <div className="space-y-6 animate-fade-in">
                         <h2 className="text-2xl font-bold text-gray-900">Shipping Information</h2>
-                        
+
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                           <input
@@ -431,16 +429,15 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                     {step === 'payment' && (
                       <div className="space-y-6 animate-fade-in">
                         <h2 className="text-2xl font-bold text-gray-900">Payment Method</h2>
-                        
+
                         <div className="space-y-3">
                           {paymentMethods.map((method) => (
                             <label
                               key={method.id}
-                              className={`flex items-start gap-4 p-4 border-2 rounded-xl cursor-pointer transition-all ${
-                                selectedPaymentMethod === method.id
-                                  ? 'border-emerald-500 bg-emerald-50'
+                              className={`flex items-start gap-4 p-4 border-2 rounded-xl cursor-pointer transition-all ${selectedPaymentMethod === method.id
+                                  ? 'border-brand-500 bg-brand-50 shadow-sm'
                                   : 'border-gray-200 hover:border-gray-300'
-                              }`}
+                                }`}
                             >
                               <input
                                 type="radio"
@@ -448,11 +445,11 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                                 value={method.id}
                                 checked={selectedPaymentMethod === method.id}
                                 onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                                className="mt-1 text-emerald-600 focus:ring-emerald-500"
+                                className="mt-1 text-brand-600 focus:ring-brand-500"
                               />
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className={selectedPaymentMethod === method.id ? 'text-emerald-600' : 'text-gray-600'}>
+                                  <span className={selectedPaymentMethod === method.id ? 'text-brand-600' : 'text-gray-600'}>
                                     {iconMap[method.icon] || <CreditCard className="w-5 h-5" />}
                                   </span>
                                   <span className="font-semibold text-gray-900">{method.name}</span>
@@ -466,7 +463,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                         <button
                           type="button"
                           onClick={() => setStep('info')}
-                          className="text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+                          className="text-brand-600 hover:text-brand-700 font-medium text-sm"
                         >
                           ← Back to shipping
                         </button>
@@ -476,7 +473,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                     {step === 'review' && (
                       <div className="space-y-6 animate-fade-in">
                         <h2 className="text-2xl font-bold text-gray-900">Review Order</h2>
-                        
+
                         <div className="bg-gray-50 rounded-xl p-4 space-y-3">
                           <h3 className="font-semibold text-gray-900">Shipping Address</h3>
                           <p className="text-gray-600">
@@ -499,7 +496,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                         <button
                           type="button"
                           onClick={() => setStep('payment')}
-                          className="text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+                          className="text-brand-600 hover:text-brand-700 font-medium text-sm"
                         >
                           ← Back to payment
                         </button>
@@ -509,7 +506,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full mt-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                      className="w-full mt-6 py-4 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         <>
@@ -550,7 +547,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                             <p className="font-medium text-gray-900 text-sm truncate">
                               {item.product.name}
                             </p>
-                            <p className="text-sm text-emerald-600 font-semibold">
+                            <p className="text-sm text-brand-600 font-semibold">
                               {formatPrice(item.product.base_price * item.quantity)}
                             </p>
                           </div>
@@ -565,17 +562,17 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>Shipping</span>
-                        <span className={shipping === 0 ? 'text-emerald-600' : ''}>
+                        <span className={shipping === 0 ? 'text-brand-600' : ''}>
                           {shipping === 0 ? 'Free' : formatPrice(shipping)}
                         </span>
                       </div>
-                      <div className="flex justify-between text-gray-600">
+                      <div className="flex items-between text-gray-600">
                         <span>Tax</span>
                         <span>{formatPrice(tax)}</span>
                       </div>
                       <div className="border-t border-gray-200 pt-2 flex justify-between text-lg font-bold text-gray-900">
                         <span>Total</span>
-                        <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
                           {formatPrice(total)}
                         </span>
                       </div>
@@ -584,15 +581,15 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                     {/* Trust Badges */}
                     <div className="mt-6 pt-4 border-t border-gray-200 space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Lock className="w-4 h-4 text-emerald-600" />
+                        <Lock className="w-4 h-4 text-brand-600" />
                         <span>Secure SSL Encryption</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Truck className="w-4 h-4 text-emerald-600" />
+                        <Truck className="w-4 h-4 text-brand-600" />
                         <span>Free shipping over $50</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Shield className="w-4 h-4 text-emerald-600" />
+                        <Shield className="w-4 h-4 text-brand-600" />
                         <span>30-day money back guarantee</span>
                       </div>
                     </div>

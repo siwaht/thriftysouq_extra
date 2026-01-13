@@ -44,12 +44,11 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
   };
 
   return (
-    <header 
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg shadow-gray-200/50 border-b border-gray-100' 
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-white/95 backdrop-blur-lg shadow-elegant border-b border-gray-100'
           : 'bg-white border-b border-gray-100'
-      }`} 
+        }`}
       role="banner"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
@@ -65,10 +64,10 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
               className="flex items-center gap-2 group"
               aria-label="Go to homepage"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:shadow-emerald-500/40 transition-shadow">
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-600 to-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/25 group-hover:shadow-brand-500/40 transition-shadow">
                 <span className="text-white font-bold text-lg">T</span>
               </div>
-              <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
                 ThriftySouq
               </span>
             </button>
@@ -81,7 +80,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   setSearchQuery('');
                   onSearch('');
                 }}
-                className="px-4 py-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all duration-200 font-medium text-sm"
+                className="px-4 py-2 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all duration-200 font-medium text-sm"
               >
                 All Products
               </button>
@@ -89,7 +88,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                 <button
                   key={category.slug}
                   onClick={() => onCategoryClick(category.slug)}
-                  className="px-4 py-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all duration-200 font-medium text-sm flex items-center gap-1.5"
+                  className="px-4 py-2 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all duration-200 font-medium text-sm flex items-center gap-1.5"
                 >
                   <span>{category.emoji}</span>
                   {category.name}
@@ -109,12 +108,11 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
                   placeholder="Search for treasures..."
-                  className={`w-full px-4 py-2.5 pl-11 pr-10 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent focus:bg-white transition-all duration-200 text-sm ${
-                    searchFocused ? 'border-emerald-300 shadow-lg shadow-emerald-100' : 'border-gray-200'
-                  }`}
+                  className={`w-full px-4 py-2.5 pl-11 pr-10 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 focus:bg-white transition-all duration-200 text-sm ${searchFocused ? 'border-brand-300 shadow-elegant shadow-brand-100/50' : 'border-gray-200'
+                    }`}
                   aria-label="Search products"
                 />
-                <Search className={`absolute left-3.5 top-3 h-5 w-5 transition-colors ${searchFocused ? 'text-emerald-600' : 'text-gray-400'}`} />
+                <Search className={`absolute left-3.5 top-3 h-5 w-5 transition-colors ${searchFocused ? 'text-brand-600' : 'text-gray-400'}`} />
                 {searchQuery && (
                   <button
                     type="button"
@@ -138,7 +136,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   const selected = currencies.find(c => c.code === e.target.value);
                   if (selected) setCurrency(selected);
                 }}
-                className="appearance-none bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:bg-gray-100 transition-colors cursor-pointer"
+                className="appearance-none bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500/20 hover:bg-gray-100 transition-colors cursor-pointer"
                 aria-label="Select currency"
               >
                 {currencies.map(curr => (
@@ -153,12 +151,12 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
             {/* Cart Button */}
             <button
               onClick={onCartClick}
-              className="relative p-2.5 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-200 group"
+              className="relative p-2.5 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition-all duration-200 group"
               aria-label={`Shopping cart with ${getTotalItems()} items`}
             >
               <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform" />
               {getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-brand-500 to-brand-400 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-scale-in">
                   {getTotalItems() > 9 ? '9+' : getTotalItems()}
                 </span>
               )}
@@ -189,7 +187,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products..."
-                  className="w-full px-4 py-3 pl-11 pr-10 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 focus:bg-white transition-all text-sm"
+                  className="w-full px-4 py-3 pl-11 pr-10 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 bg-gray-50 focus:bg-white transition-all text-sm"
                   aria-label="Search products"
                 />
                 <Search className="absolute left-3.5 top-3.5 h-5 w-5 text-gray-400" />
@@ -214,7 +212,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   const selected = currencies.find(c => c.code === e.target.value);
                   if (selected) setCurrency(selected);
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
                 {currencies.map(curr => (
                   <option key={curr.id} value={curr.code}>
@@ -235,7 +233,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                     setSearchQuery('');
                     onSearch('');
                   }}
-                  className="w-full text-left px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors font-medium flex items-center gap-3"
+                  className="w-full text-left px-4 py-3 text-gray-700 hover:bg-brand-50 hover:text-brand-700 rounded-xl transition-colors font-medium flex items-center gap-3"
                 >
                   <span className="text-lg">🛍️</span>
                   All Products
@@ -247,7 +245,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                       onCategoryClick(category.slug);
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors font-medium flex items-center gap-3"
+                    className="w-full text-left px-4 py-3 text-gray-700 hover:bg-brand-50 hover:text-brand-700 rounded-xl transition-colors font-medium flex items-center gap-3"
                   >
                     <span className="text-lg">{category.emoji}</span>
                     {category.name}

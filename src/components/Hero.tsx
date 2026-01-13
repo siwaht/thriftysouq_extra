@@ -123,7 +123,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative bg-gradient-to-br from-emerald-900 via-teal-900 to-gray-900 text-white overflow-hidden"
+      className="relative bg-gradient-to-br from-brand-900 via-brand-800 to-gray-900 text-white overflow-hidden"
       aria-label="Hero section"
     >
       {/* Background Image */}
@@ -132,14 +132,14 @@ export function Hero() {
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ backgroundImage: `url(${settings.background_image_url})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/70 via-teal-900/60 to-gray-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-900/60 to-gray-900/70" />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent" />
       </div>
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Grid Pattern */}
@@ -154,7 +154,7 @@ export function Hero() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span className="text-emerald-200 text-sm font-medium">{settings.badge_text}</span>
+                <span className="text-brand-200 text-sm font-medium">{settings.badge_text}</span>
               </div>
 
               {/* Title */}
@@ -171,7 +171,7 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                 <button
                   onClick={() => scrollToSection(settings.primary_button_link)}
-                  className="group px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="group px-6 py-3 bg-gradient-to-r from-brand-500 to-brand-400 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-brand-500/25 transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   {settings.primary_button_text}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -188,7 +188,7 @@ export function Hero() {
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4">
                 {settings.features.map((feature, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center text-emerald-400">
+                    <div className="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400">
                       {iconMap[feature.icon] || <Shield className="w-4 h-4" />}
                     </div>
                     <span className="text-gray-300 text-sm font-medium">{feature.text}</span>
@@ -207,8 +207,8 @@ export function Hero() {
                     className="p-5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/15 transition-all duration-300"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-emerald-400" />
+                      <div className="w-11 h-11 bg-brand-500/20 rounded-xl flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-brand-400" />
                       </div>
                       <div>
                         <div className="text-2xl font-bold text-white">{stat.value}</div>
@@ -230,7 +230,7 @@ export function Hero() {
                   key={index}
                   className="text-center p-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/10"
                 >
-                  <Icon className="w-5 h-5 text-emerald-400 mx-auto mb-1" />
+                  <Icon className="w-5 h-5 text-brand-400 mx-auto mb-1" />
                   <div className="text-lg font-bold text-white">{stat.value}</div>
                   <div className="text-xs text-gray-400">{stat.label}</div>
                 </div>

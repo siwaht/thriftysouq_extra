@@ -43,8 +43,8 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-              <ShoppingBag className="h-5 w-5 text-emerald-600" />
+            <div className="w-10 h-10 bg-brand-100 rounded-xl flex items-center justify-center">
+              <ShoppingBag className="h-5 w-5 text-brand-600" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
@@ -72,7 +72,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
             </p>
             <button
               onClick={onClose}
-              className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/25 transition-all"
             >
               Continue Shopping
             </button>
@@ -82,8 +82,8 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
             {/* Items List */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {items.map(item => (
-                <div 
-                  key={item.product.id} 
+                <div
+                  key={item.product.id}
                   className="flex gap-4 bg-gray-50 p-4 rounded-2xl group hover:bg-gray-100 transition-colors"
                 >
                   <div className="relative">
@@ -103,7 +103,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                     <h3 className="font-semibold text-gray-900 mb-1 truncate">
                       {item.product.name}
                     </h3>
-                    <p className="text-sm text-emerald-600 font-semibold mb-3">
+                    <p className="text-sm text-brand-600 font-semibold mb-3">
                       {formatPrice(item.product.base_price)}
                     </p>
 
@@ -149,18 +149,18 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
             <div className="border-t border-gray-100 p-6 space-y-4 bg-gray-50">
               {/* Free Shipping Progress */}
               {subtotal < 50 && (
-                <div className="bg-emerald-50 rounded-xl p-3">
+                <div className="bg-brand-50 rounded-xl p-3">
                   <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="text-emerald-700">
+                    <span className="text-brand-700">
                       Add {formatPrice(50 - subtotal)} more for free shipping!
                     </span>
-                    <span className="text-emerald-600 font-medium">
+                    <span className="text-brand-600 font-medium">
                       {Math.round((subtotal / 50) * 100)}%
                     </span>
                   </div>
-                  <div className="h-2 bg-emerald-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500"
+                  <div className="h-2 bg-brand-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full transition-all duration-500"
                       style={{ width: `${Math.min((subtotal / 50) * 100, 100)}%` }}
                     />
                   </div>
@@ -175,13 +175,13 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                 </div>
                 <div className="flex items-center justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-emerald-600' : ''}`}>
+                  <span className={`font-medium ${shipping === 0 ? 'text-brand-600' : ''}`}>
                     {shipping === 0 ? 'Free' : formatPrice(shipping)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
                   <span>Total</span>
-                  <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
                     {formatPrice(total)}
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
               {/* Checkout Button */}
               <button
                 onClick={onCheckout}
-                className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 group"
+                className="w-full py-4 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/25 transition-all flex items-center justify-center gap-2 group"
               >
                 Proceed to Checkout
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />

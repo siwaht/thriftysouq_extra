@@ -99,7 +99,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
       {/* Modal */}
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
-          <div 
+          <div
             className="relative bg-white rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
@@ -132,11 +132,10 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                         <button
                           key={index}
                           onClick={() => setSelectedImage(index)}
-                          className={`aspect-square bg-white rounded-xl overflow-hidden border-2 transition-all ${
-                            selectedImage === index 
-                              ? 'border-emerald-500 ring-2 ring-emerald-500/20' 
+                          className={`aspect-square bg-white rounded-xl overflow-hidden border-2 transition-all ${selectedImage === index
+                              ? 'border-brand-500 ring-2 ring-brand-500/20'
                               : 'border-gray-200 hover:border-gray-300'
-                          }`}
+                            }`}
                         >
                           <img
                             src={image}
@@ -183,11 +182,10 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-5 w-5 ${
-                            i < Math.floor(product.average_rating)
+                          className={`h-5 w-5 ${i < Math.floor(product.average_rating)
                               ? 'fill-amber-400 text-amber-400'
                               : 'text-gray-200'
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>
@@ -195,9 +193,9 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                       {product.average_rating.toFixed(1)}
                     </span>
                     <span className="text-gray-400">•</span>
-                    <button 
+                    <button
                       onClick={() => setActiveTab('reviews')}
-                      className="text-emerald-600 hover:text-emerald-700 font-medium"
+                      className="text-brand-600 hover:text-brand-700 font-medium"
                     >
                       {product.review_count} reviews
                     </button>
@@ -206,7 +204,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
 
                 {/* Price */}
                 <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                  <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-brand-600 to-brand-600 bg-clip-text text-transparent">
                     {formatPrice(product.base_price)}
                   </span>
                   {hasDiscount && (
@@ -253,13 +251,12 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                     <button
                       onClick={handleAddToCart}
                       disabled={product.stock_quantity === 0}
-                      className={`flex-1 py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${
-                        addedToCart
-                          ? 'bg-emerald-500 text-white'
+                      className={`flex-1 py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${addedToCart
+                          ? 'bg-brand-500 text-white'
                           : product.stock_quantity === 0
-                          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                          : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5'
-                      }`}
+                            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5'
+                        }`}
                     >
                       {addedToCart ? (
                         <>
@@ -277,11 +274,10 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                     </button>
                     <button
                       onClick={() => setIsWishlisted(!isWishlisted)}
-                      className={`p-4 rounded-xl border-2 transition-all ${
-                        isWishlisted
+                      className={`p-4 rounded-xl border-2 transition-all ${isWishlisted
                           ? 'bg-rose-50 border-rose-200 text-rose-500'
                           : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
-                      }`}
+                        }`}
                       aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
                       <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
@@ -299,15 +295,15 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                 {/* Trust Badges */}
                 <div className="grid grid-cols-3 gap-3 mb-6 p-4 bg-gray-50 rounded-xl">
                   <div className="text-center">
-                    <Truck className="h-5 w-5 mx-auto mb-1 text-emerald-600" />
+                    <Truck className="h-5 w-5 mx-auto mb-1 text-brand-600" />
                     <span className="text-xs text-gray-600">Free Shipping</span>
                   </div>
                   <div className="text-center">
-                    <Shield className="h-5 w-5 mx-auto mb-1 text-emerald-600" />
+                    <Shield className="h-5 w-5 mx-auto mb-1 text-brand-600" />
                     <span className="text-xs text-gray-600">Secure Payment</span>
                   </div>
                   <div className="text-center">
-                    <RefreshCw className="h-5 w-5 mx-auto mb-1 text-emerald-600" />
+                    <RefreshCw className="h-5 w-5 mx-auto mb-1 text-brand-600" />
                     <span className="text-xs text-gray-600">30-Day Returns</span>
                   </div>
                 </div>
@@ -319,15 +315,14 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`pb-3 font-medium capitalize transition-colors relative ${
-                          activeTab === tab
-                            ? 'text-emerald-600'
+                        className={`pb-3 font-medium capitalize transition-colors relative ${activeTab === tab
+                            ? 'text-brand-600'
                             : 'text-gray-500 hover:text-gray-700'
-                        }`}
+                          }`}
                       >
                         {tab === 'reviews' ? `Reviews (${reviews.length})` : tab}
                         {activeTab === tab && (
-                          <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600 rounded-full" />
+                          <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-600 rounded-full" />
                         )}
                       </button>
                     ))}
@@ -369,8 +364,8 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                         reviews.map(review => (
                           <div key={review.id} className="bg-gray-50 rounded-xl p-4">
                             <div className="flex items-center gap-3 mb-2">
-                              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                                <span className="text-emerald-700 font-semibold">
+                              <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+                                <span className="text-brand-700 font-semibold">
                                   {review.customer_name.charAt(0).toUpperCase()}
                                 </span>
                               </div>
@@ -380,7 +375,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                                     {review.customer_name}
                                   </span>
                                   {review.is_verified_purchase && (
-                                    <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                                    <span className="text-xs bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full">
                                       Verified
                                     </span>
                                   )}
@@ -390,11 +385,10 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                                     {[...Array(5)].map((_, i) => (
                                       <Star
                                         key={i}
-                                        className={`h-3.5 w-3.5 ${
-                                          i < review.rating
+                                        className={`h-3.5 w-3.5 ${i < review.rating
                                             ? 'fill-amber-400 text-amber-400'
                                             : 'text-gray-200'
-                                        }`}
+                                          }`}
                                       />
                                     ))}
                                   </div>
