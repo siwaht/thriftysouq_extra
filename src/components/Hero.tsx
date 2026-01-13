@@ -56,6 +56,26 @@ export function Hero() {
   useEffect(() => {
     fetchHeroSettings();
     setIsLoaded(true);
+
+    // Subscribe to real-time updates for hero_settings
+    const channel = supabase
+      .channel('hero_settings_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'hero_settings',
+        },
+        () => {
+          fetchHeroSettings();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchHeroSettings = async () => {
