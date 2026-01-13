@@ -119,6 +119,10 @@ export function AdminHeroSettings() {
           setSettings({ ...settings, id: data.id });
         }
       }
+      
+      // Dispatch custom event to notify Hero component
+      window.dispatchEvent(new CustomEvent('heroSettingsUpdated'));
+      
       alert('Hero settings saved successfully!');
     } catch (error) {
       alert('Failed to save settings: ' + (error as Error).message);

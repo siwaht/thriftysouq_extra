@@ -57,6 +57,12 @@ export function Hero() {
     fetchHeroSettings();
     setIsLoaded(true);
 
+    // Listen for custom event when hero settings are updated from admin
+    const handleHeroUpdate = () => {
+      fetchHeroSettings();
+    };
+    window.addEventListener('heroSettingsUpdated', handleHeroUpdate);
+
     // Subscribe to real-time updates for hero_settings
     const channel = supabase
       .channel('hero_settings_changes')
@@ -74,6 +80,7 @@ export function Hero() {
       .subscribe();
 
     return () => {
+      window.removeEventListener('heroSettingsUpdated', handleHeroUpdate);
       supabase.removeChannel(channel);
     };
   }, []);
