@@ -4,8 +4,8 @@
       "command": "node",
       "args": ["mcp-server/index.js"],
       "env": {
-        "SUPABASE_URL": "${VITE_SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_URL": "https://dxouvjmuduqmatprykim.supabase.co",
+        "SUPABASE_SERVICE_KEY": "YOUR_SERVICE_KEY_HERE"
       },
       "disabled": false,
       "autoApprove": [
