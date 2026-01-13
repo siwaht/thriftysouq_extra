@@ -129,11 +129,11 @@ export function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
+          className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ backgroundImage: `url(${settings.background_image_url})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/95 via-teal-900/90 to-gray-900/95" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/70 via-teal-900/60 to-gray-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent" />
       </div>
 
       {/* Animated Background Elements */}
