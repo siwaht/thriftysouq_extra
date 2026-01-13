@@ -111,30 +111,30 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                       <div className="flex items-center gap-1 bg-white rounded-lg border border-gray-200">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                          className="p-1.5 hover:bg-gray-100 rounded-l-lg transition-colors disabled:opacity-50"
+                          className="p-2 sm:p-1.5 hover:bg-gray-100 rounded-l-lg transition-colors disabled:opacity-50 active:scale-95 touch-manipulation"
                           disabled={item.quantity <= 1}
                           aria-label="Decrease quantity"
                         >
-                          <Minus className="h-3.5 w-3.5" />
+                          <Minus className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                         </button>
 
-                        <span className="w-8 text-center text-sm font-semibold">
+                        <span className="w-10 sm:w-8 text-center text-sm font-semibold">
                           {item.quantity}
                         </span>
 
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                          className="p-1.5 hover:bg-gray-100 rounded-r-lg transition-colors disabled:opacity-50"
+                          className="p-2 sm:p-1.5 hover:bg-gray-100 rounded-r-lg transition-colors disabled:opacity-50 active:scale-95 touch-manipulation"
                           disabled={item.quantity >= item.product.stock_quantity}
                           aria-label="Increase quantity"
                         >
-                          <Plus className="h-3.5 w-3.5" />
+                          <Plus className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                         </button>
                       </div>
 
                       <button
                         onClick={() => removeFromCart(item.product.id)}
-                        className="p-2 text-gray-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors active:scale-95 touch-manipulation"
                         aria-label="Remove item"
                       >
                         <Trash2 className="h-4 w-4" />

@@ -221,23 +221,25 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
 
                 {/* Quantity & Add to Cart */}
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 flex-wrap">
                     <span className="text-gray-700 font-medium">Quantity:</span>
                     <div className="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden">
                       <button
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className="px-4 py-2.5 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                        className="px-4 py-2.5 hover:bg-gray-100 transition-colors disabled:opacity-50 active:scale-95 touch-manipulation"
                         disabled={quantity <= 1}
+                        aria-label="Decrease quantity"
                       >
                         <Minus className="h-4 w-4" />
                       </button>
-                      <span className="px-6 py-2.5 font-semibold text-gray-900 border-x-2 border-gray-200">
+                      <span className="px-6 py-2.5 font-semibold text-gray-900 border-x-2 border-gray-200 min-w-[3rem] text-center">
                         {quantity}
                       </span>
                       <button
                         onClick={() => setQuantity(Math.min(product.stock_quantity, quantity + 1))}
-                        className="px-4 py-2.5 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                        className="px-4 py-2.5 hover:bg-gray-100 transition-colors disabled:opacity-50 active:scale-95 touch-manipulation"
                         disabled={quantity >= product.stock_quantity}
+                        aria-label="Increase quantity"
                       >
                         <Plus className="h-4 w-4" />
                       </button>
@@ -251,11 +253,11 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                     <button
                       onClick={handleAddToCart}
                       disabled={product.stock_quantity === 0}
-                      className={`flex-1 py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${addedToCart
+                      className={`flex-1 py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 touch-manipulation ${addedToCart
                           ? 'bg-brand-500 text-white'
                           : product.stock_quantity === 0
                             ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5'
+                            : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5 active:scale-95'
                         }`}
                     >
                       {addedToCart ? (
@@ -274,7 +276,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                     </button>
                     <button
                       onClick={() => setIsWishlisted(!isWishlisted)}
-                      className={`p-4 rounded-xl border-2 transition-all ${isWishlisted
+                      className={`p-4 rounded-xl border-2 transition-all touch-manipulation active:scale-95 ${isWishlisted
                           ? 'bg-rose-50 border-rose-200 text-rose-500'
                           : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                         }`}
@@ -284,7 +286,7 @@ export function ProductDetail({ product, isOpen, onClose }: ProductDetailProps) 
                     </button>
                     <button
                       onClick={handleShare}
-                      className="p-4 rounded-xl border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all"
+                      className="p-4 rounded-xl border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all touch-manipulation active:scale-95"
                       aria-label="Share product"
                     >
                       <Share2 className="h-5 w-5" />
