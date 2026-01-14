@@ -1,12 +1,5 @@
 {
   "name": "thriftysouq",
-  "type": "javascript",
-  "main": "dist/index.js",
-  "compatibility_date": "2026-01-14",
-  "routes": [
-    {
-      "pattern": "*",
-      "zone_name": "thriftysouq.tiara.workers.dev"
-    }
-  ]
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-14"
 }
