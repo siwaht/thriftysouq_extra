@@ -22,6 +22,11 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const loadCurrencies = async () => {
+    if (!supabase) {
+      console.warn('Supabase client not initialized');
+      setLoading(false);
+      return;
+    }
     try {
       const { data, error } = await supabase
         .from('currencies')

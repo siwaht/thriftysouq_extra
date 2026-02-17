@@ -39,6 +39,13 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
       setLoading(true);
       setError(null);
 
+      if (!supabase) {
+        console.warn('Supabase client not initialized, using demo products');
+        setProducts(!categorySlug && !searchQuery ? DEMO_PRODUCTS : []);
+        setLoading(false);
+        return;
+      }
+
       let query = supabase
         .from('products')
         .select('*, categories!inner(slug)')

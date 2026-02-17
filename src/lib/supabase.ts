@@ -6,12 +6,16 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 let supabaseInstance: SupabaseClient | null = null;
 
 if (supabaseUrl && supabaseAnonKey) {
-  supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  try {
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  } catch (error) {
+    console.error('Failed to initialize Supabase client:', error);
+  }
 } else {
   console.warn('Missing Supabase environment variables. Some features may not work.');
 }
 
-export const supabase = supabaseInstance as SupabaseClient;
+export const supabase = supabaseInstance;
 
 export interface Category {
   id: string;

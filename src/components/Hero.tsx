@@ -64,28 +64,37 @@ export function Hero() {
     window.addEventListener('heroSettingsUpdated', handleHeroUpdate);
 
     // Subscribe to real-time updates for hero_settings
-    const channel = supabase
-      .channel('hero_settings_changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'hero_settings',
-        },
-        () => {
-          fetchHeroSettings();
-        }
-      )
-      .subscribe();
+    let channel: any = null;
+    if (supabase) {
+      channel = supabase
+        .channel('hero_settings_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'hero_settings',
+          },
+          () => {
+            fetchHeroSettings();
+          }
+        )
+        .subscribe();
+    }
 
     return () => {
       window.removeEventListener('heroSettingsUpdated', handleHeroUpdate);
-      supabase.removeChannel(channel);
+      if (supabase && channel) {
+        supabase.removeChannel(channel);
+      }
     };
   }, []);
 
   const fetchHeroSettings = async () => {
+    if (!supabase) {
+      console.warn('Supabase client not initialized');
+      return;
+    }
     try {
       const { data } = await supabase
         .from('hero_settings')
