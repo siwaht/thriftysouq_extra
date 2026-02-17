@@ -54,10 +54,6 @@ function App() {
   }, []);
 
   const loadFooterData = async () => {
-    if (!supabase) {
-      console.warn('Supabase client not initialized');
-      return;
-    }
     try {
       const [sectionsRes, linksRes] = await Promise.all([
         supabase.from('footer_sections').select('*').eq('is_active', true).order('display_order'),
@@ -72,10 +68,6 @@ function App() {
   };
 
   const loadPages = async () => {
-    if (!supabase) {
-      console.warn('Supabase client not initialized');
-      return;
-    }
     try {
       const { data } = await supabase
         .from('pages')
