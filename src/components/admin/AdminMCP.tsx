@@ -20,19 +20,21 @@ export function AdminMCP() {
   const apiEndpoint = `${supabaseUrl}/functions/v1/site-management`;
 
   const endpoints: ApiEndpoint[] = [
-    { resource: 'dashboard', actions: ['get'], description: 'Get site statistics and metrics' },
-    { resource: 'products', actions: ['list', 'get', 'create', 'update', 'delete'], description: 'Manage store products' },
-    { resource: 'categories', actions: ['list', 'create', 'update', 'delete'], description: 'Manage product categories' },
-    { resource: 'orders', actions: ['list', 'get', 'update_status'], description: 'View and manage customer orders' },
-    { resource: 'reviews', actions: ['list', 'approve', 'reject', 'delete'], description: 'Moderate product reviews' },
-    { resource: 'coupons', actions: ['list', 'create', 'update', 'delete'], description: 'Manage discount coupons' },
-    { resource: 'currencies', actions: ['list', 'create', 'update', 'delete'], description: 'Configure supported currencies' },
-    { resource: 'hero_settings', actions: ['get', 'update'], description: 'Update homepage hero banner' },
-    { resource: 'footer_sections', actions: ['list', 'create', 'update', 'delete'], description: 'Manage footer sections' },
-    { resource: 'footer_links', actions: ['list', 'create', 'update', 'delete'], description: 'Manage footer links' },
-    { resource: 'settings', actions: ['get', 'update'], description: 'Update site-wide settings' },
-    { resource: 'webhooks', actions: ['list', 'create', 'update', 'delete'], description: 'Configure webhook integrations' },
-    { resource: 'payment_methods', actions: ['list', 'update'], description: 'Configure payment providers' },
+    { resource: 'Products', actions: ['list', 'get', 'create', 'update', 'delete', 'bulk_update', 'advanced_search', 'update_stock'], description: 'Full product lifecycle management with bulk operations' },
+    { resource: 'Categories', actions: ['list', 'create', 'update', 'delete'], description: 'Manage product categories and hierarchy' },
+    { resource: 'Orders', actions: ['list', 'get', 'create', 'update_status', 'update_payment', 'cancel', 'add_note'], description: 'Complete order management with manual order creation' },
+    { resource: 'Customers', actions: ['list', 'get', 'create', 'update'], description: 'Customer records and order history' },
+    { resource: 'Reviews', actions: ['list', 'create', 'approve', 'respond', 'delete'], description: 'Review moderation with admin responses' },
+    { resource: 'Coupons', actions: ['list', 'create', 'update', 'delete'], description: 'Discount code management' },
+    { resource: 'Currencies', actions: ['list', 'create', 'update', 'delete'], description: 'Multi-currency with exchange rates' },
+    { resource: 'Hero Settings', actions: ['get', 'update'], description: 'Homepage hero banner, features, and stats' },
+    { resource: 'Footer', actions: ['list_sections', 'create_section', 'update_section', 'delete_section', 'create_link', 'update_link', 'delete_link'], description: 'Full footer content management' },
+    { resource: 'Pages', actions: ['list', 'get', 'create', 'update', 'delete'], description: 'CMS pages (About, Privacy, Terms, etc.)' },
+    { resource: 'Store Settings', actions: ['get', 'update'], description: 'Site-wide configuration' },
+    { resource: 'Payment Methods', actions: ['list', 'create', 'update', 'delete'], description: 'Payment provider configuration' },
+    { resource: 'Admin Users', actions: ['list', 'create', 'update', 'delete'], description: 'Admin user management with roles' },
+    { resource: 'Analytics', actions: ['dashboard_stats', 'sales_report', 'top_products', 'low_stock', 'revenue_by_category', 'customer_insights', 'inventory_report'], description: 'Comprehensive analytics and reporting' },
+    { resource: 'Site Management', actions: ['health_check', 'full_config', 'seed_demo_data', 'execute_sql'], description: 'Site health, config export, and data seeding' },
   ];
 
   const copyToClipboard = async (text: string, key: string) => {
@@ -74,8 +76,8 @@ export function AdminMCP() {
       "command": "node",
       "args": ["mcp-server/index.js"],
       "env": {
-        "SUPABASE_URL": "your-supabase-url",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
+        "SUPABASE_URL": "${supabaseUrl || 'your-supabase-url'}",
+        "SUPABASE_SERVICE_KEY": "your-service-role-key"
       }
     }
   }
@@ -101,10 +103,11 @@ export function AdminMCP() {
             <Bot className="w-6 h-6" />
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-bold mb-2">MCP Server for AI Agents</h2>
+            <h2 className="text-xl font-bold mb-2">MCP Server v2.0 for AI Agents</h2>
             <p className="text-emerald-100 mb-4">
-              Full programmatic control over your e-commerce site via Model Context Protocol. 
-              Connect Claude, GPT, or any MCP-compatible AI agent to manage products, orders, content, and settings.
+              Full programmatic control over your e-commerce site via Model Context Protocol with 60+ tools. 
+              Connect Claude, GPT, or any MCP-compatible AI agent to manage products, orders, customers, content, 
+              analytics, site health, and settings — all from natural language.
             </p>
             <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2 mb-3">
               <code className="text-sm flex-1 overflow-x-auto">node mcp-server/index.js</code>
