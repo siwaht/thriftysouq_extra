@@ -18,6 +18,7 @@ import { AdminPages } from './AdminPages';
 import { AdminFooter } from './AdminFooter';
 import { AdminUsers } from './AdminUsers';
 import { AdminSettings } from './AdminSettings';
+import { AdminTheme } from './AdminTheme';
 
 function AdminContent() {
   const { isAuthenticated } = useAdmin();
@@ -57,6 +58,8 @@ function AdminContent() {
         return <AdminPages />;
       case 'footer':
         return <AdminFooter />;
+      case 'theme':
+        return <AdminTheme />;
       case 'users':
         return <AdminUsers />;
       case 'settings':

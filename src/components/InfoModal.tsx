@@ -31,7 +31,7 @@ export function InfoModal({ isOpen, onClose, title, children }: InfoModalProps) 
         />
 
         <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-          <div className="sticky top-0 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-4 flex items-center justify-between rounded-t-2xl">
+          <div className="sticky top-0 text-white px-6 py-4 flex items-center justify-between rounded-t-2xl" style={{ background: 'linear-gradient(to right, var(--brand-gradient-from), var(--brand-gradient-to))' }}>
             <h2 className="text-2xl font-bold">{title}</h2>
             <button
               onClick={onClose}
@@ -48,7 +48,7 @@ export function InfoModal({ isOpen, onClose, title, children }: InfoModalProps) 
           <div className="sticky bottom-0 bg-gray-50 px-6 py-4 border-t rounded-b-2xl">
             <button
               onClick={onClose}
-              className="w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
+              className="w-full px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors"
             >
               Close
             </button>

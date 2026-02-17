@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CartProvider } from './contexts/CartContext';
 import { CurrencyProvider } from './contexts/CurrencyContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ProductGrid } from './components/ProductGrid';
@@ -142,10 +143,15 @@ function App() {
   };
 
   if (view === 'admin') {
-    return <Admin />;
+    return (
+      <ThemeProvider>
+        <Admin />
+      </ThemeProvider>
+    );
   }
 
   return (
+    <ThemeProvider>
     <CurrencyProvider>
       <CartProvider>
         <div className="min-h-screen bg-gray-50">
@@ -281,6 +287,7 @@ function App() {
         </div >
       </CartProvider >
     </CurrencyProvider >
+    </ThemeProvider>
   );
 }
 

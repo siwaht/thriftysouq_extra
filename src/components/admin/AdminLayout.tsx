@@ -21,8 +21,10 @@ import {
   ChevronRight,
   FolderTree,
   FileText,
+  Paintbrush,
 } from 'lucide-react';
 import { useAdmin } from '../../contexts/AdminContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -33,6 +35,7 @@ interface AdminLayoutProps {
 export function AdminLayout({ children, currentPage, onPageChange }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { admin, logout } = useAdmin();
+  const { currentTheme } = useTheme();
 
   const navigation = [
     { name: 'Dashboard', icon: LayoutDashboard, page: 'dashboard', color: 'text-blue-500' },
@@ -49,6 +52,7 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
     { name: 'Hero Settings', icon: Palette, page: 'hero-settings', color: 'text-rose-500' },
     { name: 'Pages', icon: FileText, page: 'pages', color: 'text-sky-500' },
     { name: 'Footer', icon: Link2, page: 'footer', color: 'text-teal-500' },
+    { name: 'Theme', icon: Paintbrush, page: 'theme', color: 'text-fuchsia-500' },
     { name: 'Admin Users', icon: Users, page: 'users', color: 'text-violet-500' },
     { name: 'Settings', icon: Settings, page: 'settings', color: 'text-gray-500' },
   ];
@@ -62,7 +66,7 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
     <div className="min-h-screen bg-gray-50">
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-white border-b z-40 px-4 py-3 flex items-center justify-between shadow-sm">
-        <h1 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+        <h1 className="text-xl font-bold gradient-text">
           ThriftySouq
         </h1>
         <button
@@ -91,11 +95,11 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
         {/* Logo */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))` }}>
               <Store className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold gradient-text">
                 ThriftySouq
               </h1>
               <p className="text-xs text-gray-500">Admin Dashboard</p>
@@ -106,8 +110,8 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
         {/* User Info */}
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full flex items-center justify-center">
-              <span className="text-emerald-700 font-semibold text-sm">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: currentTheme.colors[100] }}>
+              <span className="font-semibold text-sm" style={{ color: currentTheme.colors[700] }}>
                 {admin?.firstName?.[0]}{admin?.lastName?.[0]}
               </span>
             </div>
@@ -134,9 +138,10 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
                 }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
                   isActive
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20'
+                    ? 'text-white shadow-lg'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
+                style={isActive ? { background: `linear-gradient(to right, var(--brand-gradient-from), var(--brand-gradient-to))` } : undefined}
               >
                 <Icon className={`h-5 w-5 ${isActive ? 'text-white' : item.color}`} />
                 <span className="font-medium flex-1 text-left">{item.name}</span>
@@ -150,7 +155,7 @@ export function AdminLayout({ children, currentPage, onPageChange }: AdminLayout
         <div className="p-4 border-t border-gray-100 space-y-2 bg-gray-50/50">
           <button
             onClick={handleBackToStore}
-            className="w-full flex items-center gap-3 px-4 py-3 text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors font-medium"
+            className="w-full flex items-center gap-3 px-4 py-3 text-brand-600 hover:bg-brand-50 rounded-xl transition-colors font-medium"
           >
             <Store className="h-5 w-5" />
             <span>View Store</span>

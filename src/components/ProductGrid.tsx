@@ -96,7 +96,7 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
         <p className="text-gray-500 mb-6">{error}</p>
         <button
           onClick={loadProducts}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
         >
           <RefreshCw className="w-4 h-4" />
           Try Again
@@ -108,8 +108,8 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
   if (products.length === 0) {
     return (
       <div className="text-center py-20">
-        <div className="w-24 h-24 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-          <ShoppingBag className="w-12 h-12 text-emerald-400" />
+        <div className="w-24 h-24 bg-gradient-to-br from-brand-50 to-brand-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+          <ShoppingBag className="w-12 h-12 text-brand-400" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-3">
           {searchQuery ? `No results for "${searchQuery}"` : 'No products available'}
@@ -122,7 +122,7 @@ export function ProductGrid({ categorySlug, searchQuery, onProductClick }: Produ
         {searchQuery && (
           <button
             onClick={() => window.location.reload()}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/25 transition-all"
           >
             <RefreshCw className="w-4 h-4" />
             Browse All Products
