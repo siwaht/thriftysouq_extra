@@ -65,9 +65,9 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
               aria-label="Go to homepage"
             >
               <div className="w-10 h-10 bg-gradient-to-br from-accent-500 to-accent-400 rounded-xl flex items-center justify-center shadow-lg shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
-                <span className="text-white font-serif font-bold text-xl">T</span>
+                <span className="text-white font-bold text-xl">T</span>
               </div>
-              <span className="hidden sm:block text-2xl font-serif font-bold bg-gradient-to-r from-brand-900 to-brand-700 bg-clip-text text-transparent tracking-tight">
+              <span className="hidden sm:block text-2xl font-bold bg-gradient-to-r from-brand-900 to-brand-700 bg-clip-text text-transparent">
                 ThriftySouq
               </span>
             </button>

@@ -116,7 +116,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
       <div className="p-5">
         {/* Product name */}
-        <h3 className="font-serif font-medium text-gray-900 mb-1.5 line-clamp-1 group-hover:text-accent-600 transition-colors text-lg">
+        <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-1 group-hover:text-accent-600 transition-colors text-lg">
           {product.name}
         </h3>
 

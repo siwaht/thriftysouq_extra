@@ -122,7 +122,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white overflow-hidden font-sans"
+      className="relative bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white overflow-hidden"
       aria-label="Hero section"
     >
       {/* Background Image */}
@@ -157,7 +157,7 @@ export function Hero() {
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium leading-tight text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white tracking-tight">
                 {settings.title}
               </h1>
 
@@ -210,7 +210,7 @@ export function Hero() {
                         <Icon className="w-6 h-6 text-accent-400" />
                       </div>
                       <div>
-                        <div className="text-2xl font-serif font-medium text-white">{stat.value}</div>
+                        <div className="text-2xl font-bold text-white">{stat.value}</div>
                         <div className="text-sm text-gray-400">{stat.label}</div>
                       </div>
                     </div>
@@ -230,7 +230,7 @@ export function Hero() {
                   className="text-center p-4 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 shadow-soft"
                 >
                   <Icon className="w-6 h-6 text-accent-400 mx-auto mb-2" />
-                  <div className="text-lg font-serif font-medium text-white">{stat.value}</div>
+                  <div className="text-lg font-bold text-white">{stat.value}</div>
                   <div className="text-xs text-gray-400">{stat.label}</div>
                 </div>
               );
