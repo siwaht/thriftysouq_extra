@@ -45,9 +45,9 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-white/95 backdrop-blur-lg shadow-elegant border-b border-gray-100'
-          : 'bg-white border-b border-gray-100'
+      className={`sticky top-0 z-50 transition-all duration-500 ${isScrolled
+        ? 'bg-white/80 backdrop-blur-2xl shadow-soft border-b border-gray-200/50'
+        : 'bg-white border-b border-gray-100'
         }`}
       role="banner"
     >
@@ -64,10 +64,10 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
               className="flex items-center gap-2 group"
               aria-label="Go to homepage"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-brand-600 to-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/25 group-hover:shadow-brand-500/40 transition-shadow">
-                <span className="text-white font-bold text-lg">T</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-accent-500 to-accent-400 rounded-xl flex items-center justify-center shadow-lg shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
+                <span className="text-white font-serif font-bold text-xl">T</span>
               </div>
-              <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
+              <span className="hidden sm:block text-2xl font-serif font-bold bg-gradient-to-r from-brand-900 to-brand-700 bg-clip-text text-transparent tracking-tight">
                 ThriftySouq
               </span>
             </button>
@@ -80,7 +80,7 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   setSearchQuery('');
                   onSearch('');
                 }}
-                className="px-4 py-2 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all duration-200 font-medium text-sm"
+                className="px-4 py-2 text-gray-600 hover:text-accent-700 hover:bg-accent-50/50 rounded-lg transition-all duration-300 font-medium text-sm"
               >
                 All Products
               </button>
@@ -88,9 +88,9 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                 <button
                   key={category.slug}
                   onClick={() => onCategoryClick(category.slug)}
-                  className="px-4 py-2 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all duration-200 font-medium text-sm flex items-center gap-1.5"
+                  className="px-4 py-2 text-gray-600 hover:text-accent-700 hover:bg-accent-50/50 rounded-lg transition-all duration-300 font-medium text-sm flex items-center gap-1.5"
                 >
-                  <span>{category.emoji}</span>
+                  <span className="opacity-90">{category.emoji}</span>
                   {category.name}
                 </button>
               ))}
@@ -108,11 +108,11 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
                   placeholder="Search for treasures..."
-                  className={`w-full px-4 py-2.5 pl-11 pr-10 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 focus:bg-white transition-all duration-200 text-sm ${searchFocused ? 'border-brand-300 shadow-elegant shadow-brand-100/50' : 'border-gray-200'
+                  className={`w-full px-4 py-2.5 pl-11 pr-10 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-200 focus:border-accent-500 focus:bg-white transition-all duration-300 text-sm ${searchFocused ? 'border-accent-300 shadow-soft' : 'border-gray-200'
                     }`}
                   aria-label="Search products"
                 />
-                <Search className={`absolute left-3.5 top-3 h-5 w-5 transition-colors ${searchFocused ? 'text-brand-600' : 'text-gray-400'}`} />
+                <Search className={`absolute left-3.5 top-3 h-5 w-5 transition-colors ${searchFocused ? 'text-accent-600' : 'text-gray-400'}`} />
                 {searchQuery && (
                   <button
                     type="button"
@@ -151,12 +151,12 @@ export function Header({ onCartClick, onCategoryClick, onSearch }: HeaderProps) 
             {/* Cart Button */}
             <button
               onClick={onCartClick}
-              className="relative p-2.5 text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition-all duration-200 group"
+              className="relative p-2.5 text-gray-600 hover:text-accent-600 hover:bg-accent-50/50 rounded-xl transition-all duration-300 group"
               aria-label={`Shopping cart with ${getTotalItems()} items`}
             >
               <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform" />
               {getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-brand-500 to-brand-400 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-accent-500 to-accent-400 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg shadow-glow animate-scale-in">
                   {getTotalItems() > 9 ? '9+' : getTotalItems()}
                 </span>
               )}

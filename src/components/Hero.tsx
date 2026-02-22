@@ -122,7 +122,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative bg-gradient-to-br from-brand-900 via-brand-800 to-gray-900 text-white overflow-hidden"
+      className="relative bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white overflow-hidden font-sans"
       aria-label="Hero section"
     >
       {/* Background Image */}
@@ -131,14 +131,14 @@ export function Hero() {
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ backgroundImage: `url(${settings.background_image_url})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-900/60 to-gray-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-950/80 via-brand-900/60 to-brand-950/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent" />
       </div>
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 lg:w-[500px] h-64 md:h-96 lg:h-[500px] bg-accent-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 lg:w-[500px] h-64 md:h-96 lg:h-[500px] bg-brand-500/30 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
       </div>
 
       {/* Grid Pattern */}
@@ -151,33 +151,33 @@ export function Hero() {
             {/* Left Content */}
             <div className="flex-1 max-w-2xl space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                <span className="text-brand-200 text-sm font-medium">{settings.badge_text}</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
+                <Sparkles className="w-4 h-4 text-accent-400" />
+                <span className="text-accent-100 text-sm font-medium tracking-wide">{settings.badge_text}</span>
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium leading-tight text-white tracking-tight">
                 {settings.title}
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed font-light mt-4">
                 {settings.subtitle}
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <button
                   onClick={() => scrollToSection(settings.primary_button_link)}
-                  className="group px-6 py-3 bg-gradient-to-r from-brand-500 to-brand-400 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-brand-500/25 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="group px-8 py-4 bg-gradient-to-r from-accent-600 to-accent-500 text-white font-medium rounded-xl shadow-glow hover:shadow-glow-lg transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
                 >
                   {settings.primary_button_text}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => scrollToSection(settings.secondary_button_link)}
-                  className="px-6 py-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 hover:border-white/50 transition-all duration-300"
+                  className="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-medium rounded-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   {settings.secondary_button_text}
                 </button>
@@ -186,11 +186,11 @@ export function Hero() {
               {/* Features */}
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4">
                 {settings.features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400">
-                      {iconMap[feature.icon] || <Shield className="w-4 h-4" />}
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center justify-center text-accent-400 shadow-inner-soft">
+                      {iconMap[feature.icon] || <Shield className="w-5 h-5" />}
                     </div>
-                    <span className="text-gray-300 text-sm font-medium">{feature.text}</span>
+                    <span className="text-gray-300 text-sm font-medium tracking-wide">{feature.text}</span>
                   </div>
                 ))}
               </div>
@@ -203,14 +203,14 @@ export function Hero() {
                 return (
                   <div
                     key={index}
-                    className="p-5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/15 transition-all duration-300"
+                    className="p-5 bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 shadow-elegant"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 bg-brand-500/20 rounded-xl flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-brand-400" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-accent-500/20 to-transparent rounded-xl flex items-center justify-center border border-accent-500/30">
+                        <Icon className="w-6 h-6 text-accent-400" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white">{stat.value}</div>
+                        <div className="text-2xl font-serif font-medium text-white">{stat.value}</div>
                         <div className="text-sm text-gray-400">{stat.label}</div>
                       </div>
                     </div>
@@ -227,10 +227,10 @@ export function Hero() {
               return (
                 <div
                   key={index}
-                  className="text-center p-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/10"
+                  className="text-center p-4 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 shadow-soft"
                 >
-                  <Icon className="w-5 h-5 text-brand-400 mx-auto mb-1" />
-                  <div className="text-lg font-bold text-white">{stat.value}</div>
+                  <Icon className="w-6 h-6 text-accent-400 mx-auto mb-2" />
+                  <div className="text-lg font-serif font-medium text-white">{stat.value}</div>
                   <div className="text-xs text-gray-400">{stat.label}</div>
                 </div>
               );

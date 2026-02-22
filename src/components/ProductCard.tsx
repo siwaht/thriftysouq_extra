@@ -40,7 +40,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       onClick={() => onClick(product)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-brand-200 shadow-sm hover:shadow-xl hover:shadow-brand-100/50 transition-all duration-500 transform hover:-translate-y-1"
+      className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100/80 hover:border-accent-200 shadow-sm hover:shadow-elegant-lg transition-all duration-500 transform hover:-translate-y-1"
       role="button"
       tabIndex={0}
       aria-label={`View ${product.name}`}
@@ -61,17 +61,17 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {hasDiscount && (
-            <span className="px-2.5 py-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs font-bold rounded-lg shadow-lg animate-fade-in">
+            <span className="px-2.5 py-1 bg-gradient-to-r from-rose-600 to-rose-500 text-white text-xs font-medium tracking-wide rounded-md shadow-lg animate-fade-in">
               -{discountPercent}%
             </span>
           )}
           {product.is_featured && (
-            <span className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-400 text-white text-xs font-bold rounded-lg shadow-lg">
+            <span className="px-2.5 py-1 bg-gradient-to-r from-accent-600 to-accent-400 text-white text-xs font-medium tracking-wide rounded-md shadow-lg">
               Featured
             </span>
           )}
           {product.stock_quantity <= product.low_stock_threshold && product.stock_quantity > 0 && (
-            <span className="px-2.5 py-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-bold rounded-lg shadow-lg">
+            <span className="px-2.5 py-1 bg-gradient-to-r from-amber-600 to-amber-500 text-white text-xs font-medium tracking-wide rounded-md shadow-lg">
               Low Stock
             </span>
           )}
@@ -81,8 +81,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         <button
           onClick={handleWishlist}
           className={`absolute top-3 right-3 p-2.5 rounded-full transition-all duration-300 ${isWishlisted
-              ? 'bg-rose-500 text-white shadow-lg'
-              : 'bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-white hover:text-rose-500 shadow-md'
+            ? 'bg-rose-500 text-white shadow-lg'
+            : 'bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-white hover:text-rose-500 shadow-md'
             } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
           aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
         >
@@ -93,9 +93,9 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {product.stock_quantity > 0 && (
           <button
             onClick={handleAddToCart}
-            className={`absolute bottom-3 left-3 right-3 py-2.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${addedToCart
-                ? 'bg-brand-500 text-white'
-                : 'bg-white/95 backdrop-blur-sm text-gray-900 hover:bg-brand-500 hover:text-white shadow-lg'
+            className={`absolute bottom-3 left-3 right-3 py-2.5 px-4 rounded-xl font-medium tracking-wide text-sm transition-all duration-300 flex items-center justify-center gap-2 ${addedToCart
+              ? 'bg-accent-600 text-white'
+              : 'bg-white/95 backdrop-blur-md text-gray-900 hover:bg-accent-600 hover:text-white shadow-lg border border-white/50'
               } ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             aria-label="Add to cart"
           >
@@ -114,10 +114,9 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         )}
       </div>
 
-      {/* Content */}
       <div className="p-5">
         {/* Product name */}
-        <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-1 group-hover:text-brand-600 transition-colors text-lg">
+        <h3 className="font-serif font-medium text-gray-900 mb-1.5 line-clamp-1 group-hover:text-accent-600 transition-colors text-lg">
           {product.name}
         </h3>
 
@@ -134,10 +133,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                 <Star
                   key={i}
                   className={`h-4 w-4 ${i < Math.floor(product.average_rating)
-                      ? 'fill-amber-400 text-amber-400'
-                      : i < product.average_rating
-                        ? 'fill-amber-400/50 text-amber-400'
-                        : 'text-gray-200'
+                    ? 'fill-amber-400 text-amber-400'
+                    : i < product.average_rating
+                      ? 'fill-amber-400/50 text-amber-400'
+                      : 'text-gray-200'
                     }`}
                 />
               ))}
@@ -153,7 +152,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
         {/* Price */}
         <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-600 bg-clip-text text-transparent">
+          <span className="text-xl font-semibold text-brand-900 tracking-tight">
             {formatPrice(product.base_price)}
           </span>
           {hasDiscount && (
